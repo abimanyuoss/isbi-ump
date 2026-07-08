@@ -122,6 +122,9 @@ export default function App() {
   // News detail link target
   const [selectedBerita, setSelectedBerita] = useState<Berita | null>(null);
 
+  // UMKM detail link target
+  const [selectedUmkm, setSelectedUmkm] = useState<UMKM | null>(null);
+
   // Form enrollment target
   const [prefilledProgramId, setPrefilledProgramId] = useState<string>('');
 
@@ -177,6 +180,12 @@ export default function App() {
     };
     loadAllData();
   }, []);
+
+  // Clear selected views when activeTab changes (e.g. clicking menu item)
+  useEffect(() => {
+    setSelectedBerita(null);
+    setSelectedUmkm(null);
+  }, [activeTab]);
 
   // --- VERIFY SESSION AND FETCH PROTECTED REGISTRATIONS ---
   useEffect(() => {
@@ -418,6 +427,8 @@ export default function App() {
           <PageUMKM 
             umkmList={umkmList}
             kategoriUMKM={KATEGORI_UMKM_SEED}
+            selectedUmkm={selectedUmkm}
+            setSelectedUmkm={setSelectedUmkm}
           />
         );
       case 'kontak':
@@ -504,7 +515,7 @@ export default function App() {
       <main className="flex-1 w-full relative">
         <AnimatePresence mode="wait">
           <motion.div
-            key={activeTab + (selectedBerita ? `-${selectedBerita.id}` : '')}
+            key={activeTab + (selectedBerita ? `-${selectedBerita.id}` : '') + (selectedUmkm ? `-${selectedUmkm.id}` : '')}
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
