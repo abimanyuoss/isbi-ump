@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
     "dev:server": "tsx watch server.ts",
+    "server": "npm run dev:server",
     "dev:all": "concurrently \"npm run dev\" \"npm run dev:server\"",
     "db:init": "tsx db_init.ts --run",
     "build": "vite build",

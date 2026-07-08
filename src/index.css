@@ -4,6 +4,45 @@
 @theme {
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-display: "Space Grotesk", sans-serif;
+
+  /* Pantone Classic Blue (#0f4c81) & custom shades for emerald scale */
+  --color-emerald-50: #f0f6fc;
+  --color-emerald-100: #e1edf8;
+  --color-emerald-200: #bcd9f0;
+  --color-emerald-300: #83bbe4;
+  --color-emerald-400: #4c9cd0;
+  --color-emerald-500: #0f4c81; /* Pantone Classic Blue */
+  --color-emerald-600: #1d629a;
+  --color-emerald-700: #164d7c;
+  --color-emerald-800: #0e3455;
+  --color-emerald-900: #0b253e;
+  --color-emerald-950: #051424;
+
+  /* Pantone complementary blue/teal shades for teal scale */
+  --color-teal-50: #f3f7fb;
+  --color-teal-100: #e7eff7;
+  --color-teal-200: #c2d6eb;
+  --color-teal-300: #93b7dc;
+  --color-teal-400: #5991c9;
+  --color-teal-500: #2968a8;
+  --color-teal-600: #1e528b;
+  --color-teal-700: #194373;
+  --color-teal-800: #113054;
+  --color-teal-900: #10243e;
+  --color-teal-950: #0a1728;
+
+  /* Overriding amber with a premium Satin Gold palette for elegant accents */
+  --color-amber-50: #fbf8f0;
+  --color-amber-100: #f7eed0;
+  --color-amber-200: #eddba4;
+  --color-amber-300: #e0c270;
+  --color-amber-400: #d4af37; /* Satin Gold */
+  --color-amber-500: #c5a059; /* Pantone Gold */
+  --color-amber-600: #a8833f;
+  --color-amber-700: #8a682f;
+  --color-amber-800: #6b4f21;
+  --color-amber-900: #513b19;
+  --color-amber-950: #352610;
 }
 
 /* Custom scrollbar styling */

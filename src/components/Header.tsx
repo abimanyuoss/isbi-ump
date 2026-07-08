@@ -44,7 +44,7 @@ export default function Header({ activeTab, setActiveTab, isAdminLoggedIn, onLog
             <div className="flex items-center gap-3">
               <button 
                 onClick={() => handleNavClick('admin')}
-                className={`hover:text-emerald-300 transition-colors uppercase ${activeTab === 'admin' ? 'text-emerald-300 font-bold' : ''}`}
+                className={`hover:text-amber-400 transition-colors uppercase ${activeTab === 'admin' ? 'text-amber-400 font-bold' : ''}`}
               >
                 Dashboard
               </button>
@@ -64,7 +64,7 @@ export default function Header({ activeTab, setActiveTab, isAdminLoggedIn, onLog
       <nav className="w-full bg-white border-b border-slate-200 h-20 px-4 md:px-8 flex justify-between items-center sticky top-0 shadow-sm z-40">
         {/* Brand Logo - Islamic & Entrepreneurship style */}
         <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleNavClick('beranda')}>
-          <div className="w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center shadow-md shrink-0 border border-slate-100 bg-emerald-50">
+          <div className="w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center shadow-md shrink-0 border border-amber-300/80 bg-emerald-50">
             <img 
               src="/isbi-logo.jpg" 
               alt="ISBI UMP Logo" 
@@ -87,7 +87,7 @@ export default function Header({ activeTab, setActiveTab, isAdminLoggedIn, onLog
               onClick={() => handleNavClick(item.id)}
               className={`text-sm font-semibold py-1 transition-colors ${
                 activeTab === item.id
-                  ? 'text-emerald-700 border-b-2 border-emerald-700'
+                  ? 'text-emerald-700 border-b-2 border-amber-400'
                   : 'text-slate-600 hover:text-emerald-700'
               }`}
               id={`nav-link-${item.id}`}
@@ -100,7 +100,7 @@ export default function Header({ activeTab, setActiveTab, isAdminLoggedIn, onLog
               onClick={() => handleNavClick('admin')}
               className={`text-sm font-semibold py-1 transition-colors ${
                 activeTab === 'admin'
-                  ? 'text-emerald-700 border-b-2 border-emerald-700 font-bold'
+                  ? 'text-emerald-700 border-b-2 border-amber-400 font-bold'
                   : 'text-emerald-600 hover:text-emerald-700'
               }`}
             >
@@ -139,10 +139,10 @@ export default function Header({ activeTab, setActiveTab, isAdminLoggedIn, onLog
             <button
               key={item.id}
               onClick={() => handleNavClick(item.id)}
-              className={`w-full text-left px-4 py-2.5 rounded-lg text-sm font-semibold transition-colors ${
+              className={`w-full text-left px-4 py-2.5 rounded-lg text-sm font-semibold transition-colors border-l-4 ${
                 activeTab === item.id
-                  ? 'text-emerald-700 bg-emerald-50'
-                  : 'text-slate-600 hover:bg-slate-50 hover:text-emerald-700'
+                  ? 'text-emerald-700 bg-emerald-50 border-amber-400'
+                  : 'text-slate-600 hover:bg-slate-50 hover:text-emerald-700 border-transparent'
               }`}
             >
               {item.label}
@@ -152,10 +152,10 @@ export default function Header({ activeTab, setActiveTab, isAdminLoggedIn, onLog
             <div className="border-t border-slate-250 pt-2 mt-2 flex flex-col gap-1">
               <button
                 onClick={() => handleNavClick('admin')}
-                className={`w-full text-left px-4 py-2.5 rounded-lg text-sm font-semibold flex items-center gap-2 ${
+                className={`w-full text-left px-4 py-2.5 rounded-lg text-sm font-semibold flex items-center gap-2 border-l-4 ${
                   activeTab === 'admin'
-                    ? 'text-white bg-emerald-700'
-                    : 'text-emerald-700 bg-emerald-50'
+                    ? 'text-white bg-emerald-700 border-amber-400'
+                    : 'text-emerald-700 bg-emerald-50 border-transparent'
                 }`}
               >
                 <LayoutDashboard className="w-4 h-4" />
