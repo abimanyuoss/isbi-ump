@@ -1,4 +1,4 @@
-import { Program, Berita, KategoriBerita, KategoriUMKM, UMKM, GaleriAlbum, GaleriFoto, Pendaftaran, Prestasi, ProfilData } from './types';
+import { Program, Berita, KategoriBerita, KategoriUMKM, UMKM, GaleriAlbum, GaleriFoto, Pendaftaran, Prestasi, ProfilData, Organisasi } from './types';
 
 export const KATEGORI_BERITA_SEED: KategoriBerita[] = [
   { id: 'cat-news-1', nama_kategori: 'Kegiatan' },
@@ -284,5 +284,64 @@ export const PROFIL_SEED: ProfilData = {
   kontak_email: "isbi@ump.ac.id",
   kontak_phone: "081235276164"
 };
+
+export const ORGANISASI_SEED: Organisasi[] = [
+  {
+    id: 'org-1',
+    nama: 'Efi Miftah Faridli, M. Pd.',
+    jabatan: 'Kepala Biro Kemahasiswaan dan Alumni',
+    foto: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=300',
+    urutan: 1
+  },
+  {
+    id: 'org-2',
+    nama: 'Imam Thohari, S.E.',
+    jabatan: 'Kabag Administrasi Biro Kemahasiswaan dan Alumni',
+    foto: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=300',
+    urutan: 2
+  },
+  {
+    id: 'org-3',
+    nama: 'Heri Purnomo, S.E.',
+    jabatan: 'Kasubbag Minat Bakat Biro Kemahasiswaan dan Alumni',
+    foto: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300',
+    urutan: 3
+  },
+  {
+    id: 'org-4',
+    nama: 'Arif Mulyanto, S.Si., M.Si.',
+    jabatan: 'Ketua Career Development Center (CDC)',
+    foto: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300',
+    urutan: 4
+  },
+  {
+    id: 'org-5',
+    nama: 'Dr. Fatmah Bagis, M.Si.',
+    jabatan: 'Ketua Student Advisory and Training Center (SATC)',
+    foto: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300',
+    urutan: 5
+  },
+  {
+    id: 'org-6',
+    nama: 'Dini Nur Afifah, S.Si., M.Eng',
+    jabatan: 'Ketua Student Scientific Center (SSC)',
+    foto: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=300',
+    urutan: 6
+  },
+  {
+    id: 'org-7',
+    nama: 'Dr. dr. Prima Maharani Putri, M.H.',
+    jabatan: 'Ketua Student Discipline Center (SDC)',
+    foto: 'https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&q=80&w=300',
+    urutan: 7
+  },
+  {
+    id: 'org-8',
+    nama: 'Yudhistira Pradhipta Aryoko',
+    jabatan: 'Ketua Islamic Student Business Incubator (ISBI)',
+    foto: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=300',
+    urutan: 8
+  }
+];
 
 

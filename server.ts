@@ -135,6 +135,7 @@ app.get('/api/all-data', async (req, res) => {
     const [photos] = await pool.query('SELECT * FROM photos');
     const [prestasi] = await pool.query('SELECT * FROM prestasi');
     const [profilRows] = await pool.query<any[]>('SELECT * FROM profil WHERE id = "main_profil"');
+    const [organisasi] = await pool.query('SELECT * FROM organisasi ORDER BY urutan ASC');
 
     let profil = null;
     if (profilRows.length > 0) {
@@ -159,7 +160,8 @@ app.get('/api/all-data', async (req, res) => {
         photos,
         pendaftaran: [], // Dikosongkan demi alasan privasi data pendaftar (hanya diakses via /api/pendaftaran oleh admin)
         prestasi,
-        profil
+        profil,
+        organisasi
       }
     });
   } catch (err: any) {
@@ -523,6 +525,48 @@ app.post('/api/sync/profil', authenticateAdmin, async (req, res) => {
   } catch (err: any) {
     console.error('Error updating profil:', err);
     res.status(500).json({ success: false, error: 'Gagal memperbarui profil.' });
+  }
+});
+
+// Sync Organisasi
+app.post('/api/sync/organisasi', authenticateAdmin, async (req, res) => {
+  const items = req.body as any[];
+  if (!Array.isArray(items)) {
+    return res.status(400).json({ success: false, error: 'Request body must be an array' });
+  }
+
+  const connection = await pool.getConnection();
+  try {
+    await connection.beginTransaction();
+
+    if (items.length > 0) {
+      const ids = items.map(item => item.id);
+      await connection.query('DELETE FROM organisasi WHERE id NOT IN (?)', [ids]);
+    } else {
+      await connection.query('DELETE FROM organisasi');
+    }
+
+    for (const member of items) {
+      await connection.query(
+        `INSERT INTO organisasi (id, nama, jabatan, foto, urutan)
+         VALUES (?, ?, ?, ?, ?)
+         ON DUPLICATE KEY UPDATE
+         nama = VALUES(nama),
+         jabatan = VALUES(jabatan),
+         foto = VALUES(foto),
+         urutan = VALUES(urutan)`,
+        [member.id, member.nama, member.jabatan, member.foto, member.urutan]
+      );
+    }
+
+    await connection.commit();
+    res.json({ success: true, message: 'Organisasi synced successfully' });
+  } catch (err: any) {
+    await connection.rollback();
+    console.error('Error syncing organisasi:', err);
+    res.status(500).json({ success: false, error: 'Gagal sinkronisasi data organisasi.' });
+  } finally {
+    connection.release();
   }
 });
 

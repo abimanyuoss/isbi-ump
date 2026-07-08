@@ -1,12 +1,13 @@
 import React from 'react';
 import { Eye, Target, MapPin, Mail, Phone, Map } from 'lucide-react';
-import { ProfilData } from '../types';
+import { ProfilData, Organisasi } from '../types';
 
 interface PageProfilProps {
   profilData: ProfilData;
+  organisasiList: Organisasi[];
 }
 
-export default function PageProfil({ profilData }: PageProfilProps) {
+export default function PageProfil({ profilData, organisasiList }: PageProfilProps) {
   const isVideoUrl = (url: string) => {
     if (!url) return false;
     const videoExtensions = ['.mp4', '.webm', '.ogg', '.mov', '.mkv'];
@@ -112,71 +113,38 @@ export default function PageProfil({ profilData }: PageProfilProps) {
               Struktur Organisasi
             </h2>
             <p className="text-slate-400 text-xs mt-1" id="struktur-subtitle">
-              Hierarki kepengurusan ISBI UMP
+              Kepengurusan Biro Kemahasiswaan & Alumni (BKA) dan ISBI UMP
             </p>
           </div>
 
-          {/* Org Chart Layout Tree */}
-          <div className="flex flex-col items-center w-full" id="org-chart-tree">
-            {/* Box 1 - WR III */}
-            <div className="bg-[#032050] text-white px-8 py-3.5 rounded-lg text-center w-64 shadow-md flex flex-col gap-0.5" id="node-pimpinan">
-              <span className="text-[9px] font-bold text-blue-200 uppercase tracking-widest">Wakil Rektor III</span>
-              <span className="text-sm font-black tracking-wide">{profilData.organisasi_pimpinan}</span>
-            </div>
+          {/* Organization Members Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full mt-4" id="org-members-grid">
+            {organisasiList.map((member) => (
+              <div 
+                key={member.id}
+                className="bg-white border border-slate-150 p-5 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 flex flex-col items-center text-center gap-4 hover:border-emerald-200"
+              >
+                {/* Photo container */}
+                <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-lg overflow-hidden shrink-0 border border-slate-100 bg-[#0e3b5e]/5 flex items-center justify-center">
+                  <img 
+                    src={member.foto || "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=200"} 
+                    alt={member.nama} 
+                    className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
 
-            {/* Vertical Line 1 */}
-            <div className="w-0.5 h-8 bg-slate-200" id="line-1"></div>
-
-            {/* Box 2 - Kepala BKA */}
-            <div className="bg-[#133c70] text-white px-8 py-3.5 rounded-lg text-center w-64 shadow-md flex flex-col gap-0.5" id="node-pengarah">
-              <span className="text-[9px] font-bold text-blue-100 uppercase tracking-widest">Kepala BKA</span>
-              <span className="text-sm font-black tracking-wide">{profilData.organisasi_pengarah}</span>
-            </div>
-
-            {/* Vertical Line 2 */}
-            <div className="w-0.5 h-8 bg-slate-200" id="line-2"></div>
-
-            {/* Box 3 - Penanggung Jawab */}
-            <div className="bg-[#3b5998] text-white px-8 py-3.5 rounded-lg text-center w-64 shadow-md flex flex-col gap-0.5" id="node-ketua">
-              <span className="text-[9px] font-bold text-blue-55 uppercase tracking-widest">Penanggung Jawab</span>
-              <span className="text-sm font-black tracking-wide">{profilData.organisasi_ketua}</span>
-            </div>
-
-            {/* Vertical Drop Line 3 */}
-            <div className="w-0.5 h-8 bg-slate-200" id="line-3"></div>
-
-            {/* Horizontal Branch Line Container with no overhang */}
-            <div className="grid grid-cols-3 w-full max-w-2xl relative mt-0" id="branches-container">
-              
-              {/* Branch 1 - Koord. Inkubasi */}
-              <div className="flex flex-col items-center relative" id="branch-inkubasi">
-                <div className="absolute right-0 top-0 w-1/2 h-0.5 bg-slate-200"></div>
-                <div className="w-0.5 h-6 bg-slate-200"></div>
-                <div className="bg-slate-50 border border-slate-200 px-4 py-3 rounded-lg text-center w-full max-w-[170px] shadow-xs hover:border-emerald-500 transition-colors">
-                  <span className="text-[11px] font-bold text-slate-700 block">{profilData.organisasi_koord_inkubasi}</span>
+                {/* Info Name & Jabatan */}
+                <div className="flex flex-col items-center gap-1.5 flex-1 justify-center">
+                  <span className="font-sans font-extrabold text-[#0e3b5e] hover:text-emerald-700 transition-colors text-[13px] sm:text-sm underline leading-snug">
+                    {member.nama}
+                  </span>
+                  <span className="text-[10px] sm:text-[11px] text-slate-500 font-medium leading-relaxed font-sans max-w-[200px]">
+                    {member.jabatan}
+                  </span>
                 </div>
               </div>
-
-              {/* Branch 2 - Koord. Inovasi */}
-              <div className="flex flex-col items-center relative" id="branch-inovasi">
-                <div className="absolute left-0 right-0 top-0 h-0.5 bg-slate-200"></div>
-                <div className="w-0.5 h-6 bg-slate-200"></div>
-                <div className="bg-slate-50 border border-slate-200 px-4 py-3 rounded-lg text-center w-full max-w-[170px] shadow-xs hover:border-emerald-500 transition-colors">
-                  <span className="text-[11px] font-bold text-slate-700 block">{profilData.organisasi_koord_inovasi}</span>
-                </div>
-              </div>
-
-              {/* Branch 3 - Koord. Kemitraan */}
-              <div className="flex flex-col items-center relative" id="branch-kemitraan">
-                <div className="absolute left-0 top-0 w-1/2 h-0.5 bg-slate-200"></div>
-                <div className="w-0.5 h-6 bg-slate-200"></div>
-                <div className="bg-slate-50 border border-slate-200 px-4 py-3 rounded-lg text-center w-full max-w-[170px] shadow-xs hover:border-emerald-500 transition-colors">
-                  <span className="text-[11px] font-bold text-slate-700 block">{profilData.organisasi_koord_kemitraan}</span>
-                </div>
-              </div>
-
-            </div>
-
+            ))}
           </div>
         </div>
 

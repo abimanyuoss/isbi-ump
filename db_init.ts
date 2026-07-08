@@ -11,7 +11,8 @@ import {
   KATEGORI_BERITA_SEED,
   KATEGORI_UMKM_SEED,
   PRESTASI_SEED,
-  PROFIL_SEED
+  PROFIL_SEED,
+  ORGANISASI_SEED
 } from './src/data';
 
 dotenv.config();
@@ -178,6 +179,17 @@ async function initDb() {
       )
     `);
 
+    console.log('Membuat tabel organisasi...');
+    await connection.query(`
+      CREATE TABLE IF NOT EXISTS organisasi (
+        id VARCHAR(50) PRIMARY KEY,
+        nama VARCHAR(255) NOT NULL,
+        jabatan VARCHAR(255) NOT NULL,
+        foto VARCHAR(500) NOT NULL,
+        urutan INT DEFAULT 0
+      )
+    `);
+
     console.log('Semua tabel berhasil diverifikasi/dibuat.');
 
     // 2. Seed Data Awal jika kosong
@@ -323,6 +335,18 @@ async function initDb() {
           PROFIL_SEED.kontak_phone
         ]
       );
+    }
+
+    // Seed Organisasi
+    const [orgCountRows] = await connection.query<any[]>('SELECT COUNT(*) as count FROM organisasi');
+    if (orgCountRows[0].count === 0) {
+      console.log('Seeding data organisasi...');
+      for (const member of ORGANISASI_SEED) {
+        await connection.query(
+          'INSERT INTO organisasi (id, nama, jabatan, foto, urutan) VALUES (?, ?, ?, ?, ?)',
+          [member.id, member.nama, member.jabatan, member.foto, member.urutan]
+        );
+      }
     }
 
     console.log('=== INISIALISASI DATABASE BERHASIL ===');

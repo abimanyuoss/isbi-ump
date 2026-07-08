@@ -209,7 +209,6 @@ export default function PageBerita({
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {filteredBerita.map((berita, idx) => {
             const { day, month } = parseNewsDate(berita.tanggal_terbit);
-
             return (
               <motion.div
                 key={berita.id}
@@ -219,7 +218,7 @@ export default function PageBerita({
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: idx * 0.08 }}
               >
-                <div className="relative h-48 w-full bg-slate-100 overflow-hidden shrink-0">
+                <div className="relative aspect-[4/5] w-full bg-slate-100 overflow-hidden shrink-0">
                   {isVideoUrl(berita.foto_sampul) ? (
                     <video 
                       src={berita.foto_sampul} 
@@ -238,7 +237,7 @@ export default function PageBerita({
                     />
                   )}
                   
-                  {/* Floating Date Badge requested: (angka besar + bulan) di pojok foto */}
+                  {/* Floating Date Badge: (angka besar + bulan) di pojok foto */}
                   <div className="absolute top-4 left-4 bg-emerald-700 text-white p-2.5 rounded-xl shadow-lg flex flex-col items-center justify-center leading-none min-w-[50px] border border-emerald-600/30">
                     <span className="font-display font-black text-lg">{day}</span>
                     <span className="text-[9px] uppercase tracking-wider font-extrabold mt-1">{month}</span>
@@ -248,7 +247,7 @@ export default function PageBerita({
                 <div className="p-5 flex flex-col justify-between flex-grow">
                   <div>
                     <span className="text-[10px] text-emerald-700 font-extrabold uppercase tracking-wider block mb-2">
-                      {getCategoryName(berita.kategori_id)}
+                      {getCategoryName(berita.kategori_id).toUpperCase()}
                     </span>
                     <h3 className="font-bold text-slate-800 text-sm leading-snug group-hover:text-emerald-700 transition-colors line-clamp-2">
                       {berita.judul}
@@ -260,11 +259,11 @@ export default function PageBerita({
 
                   <div className="border-t border-slate-200 pt-3.5 mt-5 flex items-center justify-between text-slate-400 text-xs">
                     <span className="text-[10px] font-semibold flex items-center gap-1.5 text-slate-400">
-                      <Newspaper className="w-3.5 h-3.5 text-emerald-700" />
+                      <Newspaper className="w-3.5 h-3.5 text-emerald-750" />
                       <span>ISBI Admin</span>
                     </span>
                     <span className="font-bold text-[10px] text-emerald-700 group-hover:underline uppercase tracking-wide">
-                      Baca Selengkapnya
+                      BACA SELENGKAPNYA
                     </span>
                   </div>
                 </div>

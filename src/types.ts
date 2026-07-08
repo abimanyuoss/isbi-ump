@@ -112,4 +112,10 @@ export interface ProfilData {
   kontak_phone: string;
 }
 
-
+export interface Organisasi {
+  id: string;
+  nama: string;
+  jabatan: string;
+  foto: string;
+  urutan: number;
+}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
 // Types
-import { Program, Berita, UMKM, GaleriAlbum, GaleriFoto, Pendaftaran, Prestasi, ProfilData } from './types';
+import { Program, Berita, UMKM, GaleriAlbum, GaleriFoto, Pendaftaran, Prestasi, ProfilData, Organisasi } from './types';
 
 // Seed Data
 import { 
@@ -15,7 +15,8 @@ import {
   KATEGORI_BERITA_SEED,
   KATEGORI_UMKM_SEED,
   PRESTASI_SEED,
-  PROFIL_SEED
+  PROFIL_SEED,
+  ORGANISASI_SEED
 } from './data';
 
 // Custom Components
@@ -112,6 +113,7 @@ export default function App() {
   const [pendaftaranList, setPendaftaranList] = useState<Pendaftaran[]>(PENDAFTARAN_SEED);
   const [prestasiList, setPrestasiList] = useState<Prestasi[]>(PRESTASI_SEED);
   const [profilData, setProfilData] = useState<ProfilData>(PROFIL_SEED);
+  const [organisasiList, setOrganisasiList] = useState<Organisasi[]>(ORGANISASI_SEED);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // Active navigation tab
@@ -146,7 +148,7 @@ export default function App() {
         const response = await fetch('/api/all-data');
         const res = await response.json();
         if (res.success && res.data) {
-          const { programs, berita, umkm, albums, photos, pendaftaran, prestasi, profil } = res.data;
+          const { programs, berita, umkm, albums, photos, pendaftaran, prestasi, profil, organisasi } = res.data;
           if (programs) setPrograms(programs);
           if (berita) setBeritaList(berita);
           if (umkm) setUmkmList(umkm);
@@ -155,6 +157,7 @@ export default function App() {
           if (pendaftaran) setPendaftaranList(pendaftaran);
           if (prestasi) setPrestasiList(prestasi);
           if (profil) setProfilData(profil);
+          if (organisasi) setOrganisasiList(organisasi);
         }
       } catch (err) {
         console.warn('Gagal mengambil data dari API TiDB, menggunakan cadangan LocalStorage/Seed:', err);
@@ -167,6 +170,7 @@ export default function App() {
         setPendaftaranList(getSafeLocalStorage('isbi_pendaftaran', PENDAFTARAN_SEED));
         setPrestasiList(getSafeLocalStorage('isbi_prestasi', PRESTASI_SEED));
         setProfilData(getSafeLocalStorage('isbi_profil', PROFIL_SEED));
+        setOrganisasiList(getSafeLocalStorage('isbi_organisasi', ORGANISASI_SEED));
       } finally {
         setIsLoading(false);
       }
@@ -302,6 +306,15 @@ export default function App() {
     });
   };
 
+  const setOrganisasiListWithSync: React.Dispatch<React.SetStateAction<Organisasi[]>> = (value) => {
+    setOrganisasiList(prev => {
+      const next = typeof value === 'function' ? (value as Function)(prev) : value;
+      safeSetLocalStorage('isbi_organisasi', next);
+      setTimeout(() => syncToApi('organisasi', next), 0);
+      return next;
+    });
+  };
+
   // --- ACTIONS ---
   const handleLoginSuccess = (token: string) => {
     setIsAdminLoggedIn(true);
@@ -328,6 +341,7 @@ export default function App() {
     setPendaftaranList(PENDAFTARAN_SEED);
     setPrestasiList(PRESTASI_SEED);
     setProfilData(PROFIL_SEED);
+    setOrganisasiList(ORGANISASI_SEED);
     setSelectedBerita(null);
 
     // Sync ke API database
@@ -339,6 +353,7 @@ export default function App() {
     await syncToApi('pendaftaran', PENDAFTARAN_SEED);
     await syncToApi('prestasi', PRESTASI_SEED);
     await syncToApi('profil', PROFIL_SEED);
+    await syncToApi('organisasi', ORGANISASI_SEED);
 
     // Bersihkan LocalStorage
     localStorage.removeItem('isbi_programs');
@@ -349,6 +364,7 @@ export default function App() {
     localStorage.removeItem('isbi_pendaftaran');
     localStorage.removeItem('isbi_prestasi');
     localStorage.removeItem('isbi_profil');
+    localStorage.removeItem('isbi_organisasi');
   };
 
   // --- DYNAMIC VIEW ROUTER ---
@@ -366,7 +382,7 @@ export default function App() {
           />
         );
       case 'profil':
-        return <PageProfil profilData={profilData} />;
+        return <PageProfil profilData={profilData} organisasiList={organisasiList} />;
       case 'program':
         return (
           <PageProgram 
@@ -421,7 +437,7 @@ export default function App() {
             <div className="py-24 px-6 text-center max-w-md mx-auto flex flex-col items-center justify-center min-h-[50vh]">
               <h3 className="font-display font-black text-4xl text-slate-300">404</h3>
               <p className="font-bold text-slate-750 text-sm mt-2">Halaman Tidak Ditemukan</p>
-              <p className="text-slate-500 text-[11px] mt-1 max-w-xs leading-relaxed">Maaf, halaman yang Anda cari tidak tersedia atau telah dipindahkan.</p>
+              <p className="text-slate-550 text-[11px] mt-1 max-w-xs leading-relaxed">Maaf, halaman yang Anda cari tidak tersedia atau telah dipindahkan.</p>
               <button 
                 onClick={() => setActiveTab('beranda')}
                 className="mt-6 px-5 py-2.5 bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs rounded-xl transition-all cursor-pointer"
@@ -449,6 +465,8 @@ export default function App() {
             setPrestasiList={setPrestasiListWithSync}
             profilData={profilData}
             setProfilData={setProfilDataWithSync}
+            organisasiList={organisasiList}
+            setOrganisasiList={setOrganisasiListWithSync}
             kategoriBerita={KATEGORI_BERITA_SEED}
             kategoriUMKM={KATEGORI_UMKM_SEED}
             onResetData={handleResetData}
