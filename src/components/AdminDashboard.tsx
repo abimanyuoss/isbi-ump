@@ -35,7 +35,8 @@ import {
   PendaftaranStatus,
   Prestasi,
   ProfilData,
-  Organisasi
+  Organisasi,
+  HeroSlide
 } from '../types';
 
 interface AdminDashboardProps {
@@ -57,12 +58,14 @@ interface AdminDashboardProps {
   setProfilData: React.Dispatch<React.SetStateAction<ProfilData>>;
   organisasiList: Organisasi[];
   setOrganisasiList: React.Dispatch<React.SetStateAction<Organisasi[]>>;
+  heroSlides: HeroSlide[];
+  setHeroSlides: React.Dispatch<React.SetStateAction<HeroSlide[]>>;
   kategoriBerita: KategoriBerita[];
   kategoriUMKM: KategoriUMKM[];
   onResetData: () => void;
 }
 
-type SubTab = 'overview' | 'berita' | 'program' | 'umkm' | 'galeri' | 'pesan' | 'prestasi' | 'profil';
+type SubTab = 'overview' | 'berita' | 'program' | 'umkm' | 'galeri' | 'pesan' | 'prestasi' | 'profil' | 'banner';
 
 export default function AdminDashboard({
   programs, setPrograms,
@@ -74,6 +77,7 @@ export default function AdminDashboard({
   prestasiList, setPrestasiList,
   profilData, setProfilData,
   organisasiList, setOrganisasiList,
+  heroSlides, setHeroSlides,
   kategoriBerita,
   kategoriUMKM,
   onResetData
@@ -275,6 +279,116 @@ export default function AdminDashboard({
         showAlert('Anggota organisasi berhasil dihapus!');
       }
     });
+  };
+
+  // Kelola Banner CRUD states
+  const [isBannerFormOpen, setIsBannerFormOpen] = useState<boolean>(false);
+  const [editingBanner, setEditingBanner] = useState<HeroSlide | null>(null);
+  const [bannerFormData, setBannerFormData] = useState<Omit<HeroSlide, 'urutan'>>({
+    id: '',
+    title: '',
+    subtitle: '',
+    ctaText: '',
+    ctaTab: 'kontak',
+    secondaryText: '',
+    secondaryTab: 'program',
+    image: '',
+    badge: '',
+    gradient: 'from-[#032050] via-[#032050]/80 to-transparent'
+  });
+
+  const handleOpenBannerForm = (slide?: HeroSlide) => {
+    if (slide) {
+      setEditingBanner(slide);
+      setBannerFormData({
+        id: slide.id,
+        title: slide.title,
+        subtitle: slide.subtitle,
+        ctaText: slide.ctaText || '',
+        ctaTab: slide.ctaTab || 'kontak',
+        secondaryText: slide.secondaryText || '',
+        secondaryTab: slide.secondaryTab || 'program',
+        image: slide.image || '',
+        badge: slide.badge || '',
+        gradient: slide.gradient || 'from-[#032050] via-[#032050]/80 to-transparent'
+      });
+    } else {
+      setEditingBanner(null);
+      setBannerFormData({
+        id: 'hero-' + Date.now(),
+        title: '',
+        subtitle: '',
+        ctaText: '',
+        ctaTab: 'kontak',
+        secondaryText: '',
+        secondaryTab: 'program',
+        image: '',
+        badge: '',
+        gradient: 'from-[#032050] via-[#032050]/80 to-transparent'
+      });
+    }
+    setIsBannerFormOpen(true);
+  };
+
+  const handleSaveBanner = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!bannerFormData.title) {
+      showAlert('Judul banner wajib diisi!', 'error');
+      return;
+    }
+    
+    if (editingBanner) {
+      // Edit existing
+      setHeroSlides(prev => {
+        const updated = prev.map(s => s.id === editingBanner.id ? { ...s, ...bannerFormData } : s);
+        return updated;
+      });
+      showAlert('Slide banner berhasil diperbarui!');
+    } else {
+      // Add new
+      const newSlide: HeroSlide = {
+        ...bannerFormData,
+        urutan: heroSlides.length + 1
+      };
+      setHeroSlides(prev => [...prev, newSlide]);
+      showAlert('Slide banner baru berhasil ditambahkan!');
+    }
+    setIsBannerFormOpen(false);
+  };
+
+  const handleDeleteBanner = (id: string) => {
+    setConfirmDialog({
+      isOpen: true,
+      title: 'Hapus Slide Banner?',
+      message: 'Apakah Anda yakin ingin menghapus slide banner ini secara permanen dari halaman beranda?',
+      confirmText: 'Ya, Hapus',
+      onConfirm: () => {
+        setHeroSlides(prev => {
+          const filtered = prev.filter(s => s.id !== id);
+          // Re-index order
+          return filtered.map((s, index) => ({ ...s, urutan: index + 1 }));
+        });
+        showAlert('Slide banner berhasil dihapus.');
+      }
+    });
+  };
+
+  const handleMoveBannerOrder = (index: number, direction: 'up' | 'down') => {
+    const nextIndex = direction === 'up' ? index - 1 : index + 1;
+    if (nextIndex < 0 || nextIndex >= heroSlides.length) return;
+
+    const list = [...heroSlides];
+    const temp = list[index];
+    list[index] = list[nextIndex];
+    list[nextIndex] = temp;
+
+    // Re-index order
+    const reordered = list.map((item, idx) => ({
+      ...item,
+      urutan: idx + 1
+    }));
+    setHeroSlides(reordered);
+    showAlert('Urutan slide banner berhasil diperbarui.');
   };
 
   // --- BERITA CRUD ---
@@ -901,13 +1015,24 @@ export default function AdminDashboard({
               <Compass className={`w-3.5 h-3.5 shrink-0 ${activeSubTab === 'profil' ? 'text-white' : 'text-indigo-500'}`} />
               <span>Kelola Profil ISBI</span>
             </button>
+
+            <button 
+              onClick={() => { setActiveSubTab('banner'); setSearchQuery(''); }}
+              className={`w-auto lg:w-full px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shrink-0 whitespace-nowrap ${
+                activeSubTab === 'banner' ? 'bg-emerald-700 text-white shadow-sm shadow-emerald-700/10' : 'text-slate-600 hover:bg-slate-50 bg-slate-50/50 lg:bg-transparent border border-slate-200/40 lg:border-transparent'
+              }`}
+            >
+              <LayoutDashboard className={`w-3.5 h-3.5 shrink-0 ${activeSubTab === 'banner' ? 'text-white' : 'text-emerald-700'}`} />
+              <span>Kelola Banner Beranda</span>
+              <span className={`ml-1.5 lg:ml-auto text-[9px] px-1.5 py-0.5 rounded font-extrabold ${activeSubTab === 'banner' ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-500'}`}>{heroSlides.length}</span>
+            </button>
           </div>
 
           {/* Right Content Screen */}
           <div className="lg:col-span-9 bg-white border border-slate-200/60 rounded-3xl p-4 sm:p-6 shadow-sm min-h-[500px]">
             
-            {/* SEARCH BAR (except for overview, galeri, and profil subtabs) */}
-            {activeSubTab !== 'overview' && activeSubTab !== 'galeri' && activeSubTab !== 'profil' && (
+            {/* SEARCH BAR (except for overview, galeri, profil, and banner subtabs) */}
+            {activeSubTab !== 'overview' && activeSubTab !== 'galeri' && activeSubTab !== 'profil' && activeSubTab !== 'banner' && (
               <div className="relative mb-6">
                 <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3.5" />
                 <input 
@@ -2566,6 +2691,311 @@ export default function AdminDashboard({
                   </button>
                 </div>
               </form>
+            )}
+
+            {/* ================= KELOLA BANNER BERANDA ================= */}
+            {activeSubTab === 'banner' && (
+              <div className="flex flex-col gap-6 text-left animate-in fade-in duration-200">
+                <div className="flex justify-between items-center border-b border-slate-100 pb-4">
+                  <div>
+                    <h3 className="font-display font-bold text-slate-800 text-md">Kelola Banner Beranda</h3>
+                    <p className="text-slate-400 text-xs mt-0.5">Kelola gambar/video promosi utama, slogan, dan tautan tombol di halaman depan.</p>
+                  </div>
+                  {!isBannerFormOpen && (
+                    <button 
+                      onClick={() => handleOpenBannerForm()}
+                      className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-xl transition-all flex items-center gap-1.5 cursor-pointer shadow-sm"
+                    >
+                      <Plus className="w-4 h-4" />
+                      <span>Tambah Slide Banner</span>
+                    </button>
+                  )}
+                </div>
+
+                {isBannerFormOpen ? (
+                  <form onSubmit={handleSaveBanner} className="bg-slate-50 border border-slate-150 p-6 rounded-2xl flex flex-col gap-4 animate-in slide-in-from-top-4 duration-200">
+                    <div className="flex justify-between items-center border-b border-slate-200/60 pb-3">
+                      <span className="font-sans font-black text-sm text-slate-800">
+                        {editingBanner ? 'Edit Slide Banner' : 'Tambah Slide Banner Baru'}
+                      </span>
+                      <button type="button" onClick={() => setIsBannerFormOpen(false)} className="text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {/* Judul */}
+                      <div className="flex flex-col gap-1.5 md:col-span-2">
+                        <label className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 font-mono">Judul Utama Banner *</label>
+                        <input 
+                          type="text"
+                          required
+                          value={bannerFormData.title}
+                          onChange={(e) => setBannerFormData({ ...bannerFormData, title: e.target.value })}
+                          placeholder="Contoh: Mencetak Wirausaha Mandiri Sukses"
+                          className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-emerald-500 bg-white"
+                        />
+                      </div>
+
+                      {/* Subjudul */}
+                      <div className="flex flex-col gap-1.5 md:col-span-2">
+                        <label className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 font-mono">Subjudul / Deskripsi Singkat</label>
+                        <textarea 
+                          rows={2}
+                          value={bannerFormData.subtitle}
+                          onChange={(e) => setBannerFormData({ ...bannerFormData, subtitle: e.target.value })}
+                          placeholder="Tulis penjelasan singkat mengenai program atau promosi ini..."
+                          className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-emerald-500 bg-white"
+                        />
+                      </div>
+
+                      {/* Label Kecil (Badge) */}
+                      <div className="flex flex-col gap-1.5">
+                        <label className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 font-mono font-sans">Label Mini (Badge)</label>
+                        <input 
+                          type="text"
+                          value={bannerFormData.badge}
+                          onChange={(e) => setBannerFormData({ ...bannerFormData, badge: e.target.value })}
+                          placeholder="Contoh: Program P2MW"
+                          className="w-full px-3.5 py-2 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-emerald-500 bg-white"
+                        />
+                      </div>
+
+                      {/* Gradien Tema */}
+                      <div className="flex flex-col gap-1.5">
+                        <label className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 font-mono font-sans">Preset Gradien Latar Belakang</label>
+                        <select 
+                          value={bannerFormData.gradient}
+                          onChange={(e) => setBannerFormData({ ...bannerFormData, gradient: e.target.value })}
+                          className="w-full px-3.5 py-2 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-emerald-500 bg-white"
+                        >
+                          <option value="from-[#032050] via-[#032050]/80 to-transparent">Deep Blue UMP</option>
+                          <option value="from-[#0a192f] via-[#0a192f]/85 to-transparent">Midnight Dark</option>
+                          <option value="from-[#042f2e] via-[#042f2e]/85 to-transparent">Forest Teal</option>
+                          <option value="from-[#020617] via-[#020617]/90 to-transparent">Obsidian Slate</option>
+                          <option value="from-[#1e1b4b] via-[#1e1b4b]/85 to-transparent">Indigo Nebula</option>
+                        </select>
+                      </div>
+
+                      {/* Gambar Banner */}
+                      <div className="flex flex-col gap-1.5 md:col-span-2">
+                        <label className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 font-mono">Tautan Gambar / Video Banner (Maks. 10MB)</label>
+                        <div className="flex gap-2">
+                          <input 
+                            type="text"
+                            required
+                            value={bannerFormData.image}
+                            onChange={(e) => setBannerFormData({ ...bannerFormData, image: e.target.value })}
+                            placeholder="URL gambar (https://...) atau unggah berkas lokal"
+                            className="flex-1 px-3.5 py-2.5 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-emerald-500 bg-white"
+                          />
+                          <div className="relative">
+                            <input 
+                              type="file"
+                              accept="image/*,video/*"
+                              onChange={async (e) => {
+                                const file = e.target.files?.[0];
+                                if (file) {
+                                  const url = await handleFileUpload(file);
+                                  if (url) setBannerFormData({ ...bannerFormData, image: url });
+                                }
+                              }}
+                              className="hidden"
+                              id="banner-image-upload"
+                            />
+                            <label 
+                              htmlFor="banner-image-upload"
+                              className="px-4 py-3 bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 font-bold rounded-xl text-xs flex items-center gap-1.5 cursor-pointer h-full transition-all"
+                            >
+                              <Upload className="w-3.5 h-3.5 shrink-0" />
+                              <span>Unggah</span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Tombol Utama (CTA) */}
+                      <div className="flex flex-col gap-1.5 border border-slate-200 p-3 rounded-xl bg-white">
+                        <span className="text-[9px] font-extrabold uppercase tracking-wider text-slate-400 font-mono mb-1">Konfigurasi Tombol Utama</span>
+                        <div className="flex flex-col gap-2">
+                          <input 
+                            type="text"
+                            value={bannerFormData.ctaText}
+                            onChange={(e) => setBannerFormData({ ...bannerFormData, ctaText: e.target.value })}
+                            placeholder="Teks Tombol (misal: Daftar Sekarang)"
+                            className="w-full px-3.5 py-1.5 border border-slate-200 rounded-lg text-xs font-medium focus:outline-none focus:border-emerald-500"
+                          />
+                          <select 
+                            value={bannerFormData.ctaTab}
+                            onChange={(e) => setBannerFormData({ ...bannerFormData, ctaTab: e.target.value })}
+                            className="w-full px-3.5 py-1.5 border border-slate-200 rounded-lg text-xs font-medium focus:outline-none focus:border-emerald-500 bg-white"
+                          >
+                            <option value="beranda">Tab: Beranda</option>
+                            <option value="profil">Tab: Profil</option>
+                            <option value="program">Tab: Program</option>
+                            <option value="berita">Tab: Berita</option>
+                            <option value="prestasi">Tab: Prestasi</option>
+                            <option value="galeri">Tab: Galeri</option>
+                            <option value="umkm">Tab: UMKM</option>
+                            <option value="kontak">Tab: Kontak / Hubungi Kami</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      {/* Tombol Sekunder */}
+                      <div className="flex flex-col gap-1.5 border border-slate-200 p-3 rounded-xl bg-white">
+                        <span className="text-[9px] font-extrabold uppercase tracking-wider text-slate-400 font-mono mb-1">Konfigurasi Tombol Sekunder</span>
+                        <div className="flex flex-col gap-2">
+                          <input 
+                            type="text"
+                            value={bannerFormData.secondaryText}
+                            onChange={(e) => setBannerFormData({ ...bannerFormData, secondaryText: e.target.value })}
+                            placeholder="Teks Tombol (misal: Pelajari Lebih Lanjut)"
+                            className="w-full px-3.5 py-1.5 border border-slate-200 rounded-lg text-xs font-medium focus:outline-none focus:border-emerald-500"
+                          />
+                          <select 
+                            value={bannerFormData.secondaryTab}
+                            onChange={(e) => setBannerFormData({ ...bannerFormData, secondaryTab: e.target.value })}
+                            className="w-full px-3.5 py-1.5 border border-slate-200 rounded-lg text-xs font-medium focus:outline-none focus:border-emerald-500 bg-white"
+                          >
+                            <option value="beranda">Tab: Beranda</option>
+                            <option value="profil">Tab: Profil</option>
+                            <option value="program">Tab: Program</option>
+                            <option value="berita">Tab: Berita</option>
+                            <option value="prestasi">Tab: Prestasi</option>
+                            <option value="galeri">Tab: Galeri</option>
+                            <option value="umkm">Tab: UMKM</option>
+                            <option value="kontak">Tab: Kontak / Hubungi Kami</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex justify-end gap-2 border-t border-slate-200/60 pt-4 mt-2">
+                      <button 
+                        type="button" 
+                        onClick={() => setIsBannerFormOpen(false)}
+                        className="px-4 py-2 border border-slate-200 text-slate-600 font-bold rounded-xl hover:bg-slate-100 cursor-pointer text-xs"
+                      >
+                        Batal
+                      </button>
+                      <button 
+                        type="submit"
+                        className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-md transition-all cursor-pointer"
+                      >
+                        {editingBanner ? 'Simpan Suntingan' : 'Tambahkan Banner'}
+                      </button>
+                    </div>
+                  </form>
+                ) : (
+                  <div className="flex flex-col gap-4">
+                    {/* Instructions note */}
+                    <div className="bg-amber-50/60 border border-amber-200/80 p-3.5 rounded-xl text-left">
+                      <p className="text-[11px] text-amber-900 leading-relaxed font-sans">
+                        <span className="font-extrabold block mb-0.5">💡 Tips Pengelolaan Banner Beranda</span>
+                        Gunakan tombol naik/turun (<span className="font-bold">▲/▼</span>) untuk mengubah posisi urutan slide di halaman depan. Untuk performa terbaik, kami merekomendasikan resolusi gambar landscape minimal <span className="font-bold">1200 x 500 px</span> dengan format WebP atau JPG terkompresi. Format video didukung (.mp4).
+                      </p>
+                    </div>
+
+                    {/* Table / Card List */}
+                    <div className="flex flex-col gap-3">
+                      {heroSlides.map((slide, idx) => (
+                        <div 
+                          key={slide.id}
+                          className="bg-white border border-slate-200 rounded-xl p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 hover:border-slate-300 transition-colors"
+                        >
+                          {/* Image & Title Info */}
+                          <div className="flex items-center gap-3.5 flex-1 min-w-0">
+                            {/* Order Badge */}
+                            <span className="h-6 w-6 shrink-0 bg-slate-100 border border-slate-200 rounded-full flex items-center justify-center text-xs font-mono font-black text-slate-500">
+                              {idx + 1}
+                            </span>
+                            {/* Thumbnail */}
+                            <div className="w-20 h-12 bg-slate-100 rounded-lg overflow-hidden shrink-0 border border-slate-200">
+                              <img 
+                                src={slide.image} 
+                                alt={slide.title} 
+                                className="w-full h-full object-cover"
+                                referrerPolicy="no-referrer"
+                              />
+                            </div>
+                            {/* Text details */}
+                            <div className="text-left truncate flex-1">
+                              {slide.badge && (
+                                <span className="bg-amber-100 text-amber-800 text-[9px] font-bold px-2 py-0.5 rounded mr-2">
+                                  {slide.badge}
+                                </span>
+                              )}
+                              <h4 className="text-slate-800 font-bold text-xs truncate leading-snug mt-1">
+                                {slide.title}
+                              </h4>
+                              <p className="text-slate-400 text-[10px] truncate mt-0.5">
+                                {slide.subtitle || 'Tidak ada deskripsi'}
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* Control Buttons & Actions */}
+                          <div className="flex items-center gap-2 shrink-0 w-full md:w-auto justify-end border-t md:border-t-0 pt-3 md:pt-0">
+                            {/* Ordering Buttons */}
+                            <div className="flex items-center gap-1 bg-slate-50 p-1 rounded-lg border border-slate-200">
+                              <button 
+                                onClick={() => handleMoveBannerOrder(idx, 'up')}
+                                disabled={idx === 0}
+                                className="p-1 text-slate-500 hover:text-slate-800 disabled:opacity-30 disabled:pointer-events-none hover:bg-white rounded cursor-pointer text-[10px] font-bold"
+                                title="Naikkan Urutan"
+                              >
+                                ▲
+                              </button>
+                              <button 
+                                onClick={() => handleMoveBannerOrder(idx, 'down')}
+                                disabled={idx === heroSlides.length - 1}
+                                className="p-1 text-slate-500 hover:text-slate-800 disabled:opacity-30 disabled:pointer-events-none hover:bg-white rounded cursor-pointer text-[10px] font-bold"
+                                title="Turunkan Urutan"
+                              >
+                                ▼
+                              </button>
+                            </div>
+
+                            {/* CRUD buttons */}
+                            <button 
+                              onClick={() => handleOpenBannerForm(slide)}
+                              className="px-2.5 py-1.5 text-slate-600 hover:text-emerald-700 bg-slate-50 border border-slate-200 rounded-lg text-[10px] font-extrabold flex items-center gap-1 cursor-pointer transition-colors uppercase"
+                            >
+                              <Edit2 className="w-3 h-3 text-slate-400" />
+                              <span>Edit</span>
+                            </button>
+
+                            <button 
+                              onClick={() => handleDeleteBanner(slide.id)}
+                              className="px-2.5 py-1.5 text-red-600 hover:text-white hover:bg-rose-600 border border-slate-200 hover:border-transparent rounded-lg text-[10px] font-extrabold flex items-center gap-1 cursor-pointer transition-all uppercase"
+                            >
+                              <Trash2 className="w-3 h-3 text-red-400 hover:text-white" />
+                              <span>Hapus</span>
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+
+                      {heroSlides.length === 0 && (
+                        <div className="py-16 text-center border border-dashed border-slate-200 rounded-2xl bg-white p-8">
+                          <LayoutDashboard className="w-12 h-12 text-slate-300 mx-auto mb-3" />
+                          <h4 className="font-bold text-slate-700 text-xs">Belum ada slide banner</h4>
+                          <p className="text-[10px] text-slate-400 mt-1 max-w-xs mx-auto">
+                            Halaman depan akan menampilkan latar default kosong. Tambahkan slide banner baru untuk menyapa pengunjung.
+                          </p>
+                          <button
+                            onClick={() => handleOpenBannerForm()}
+                            className="mt-4 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-sm transition-colors cursor-pointer"
+                          >
+                            Tambah Slide Pertama
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
             )}
 
           </div>

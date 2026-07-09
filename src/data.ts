@@ -1,4 +1,4 @@
-import { Program, Berita, KategoriBerita, KategoriUMKM, UMKM, GaleriAlbum, GaleriFoto, Pendaftaran, Prestasi, ProfilData, Organisasi } from './types';
+import { Program, Berita, KategoriBerita, KategoriUMKM, UMKM, GaleriAlbum, GaleriFoto, Pendaftaran, Prestasi, ProfilData, Organisasi, HeroSlide } from './types';
 
 export const KATEGORI_BERITA_SEED: KategoriBerita[] = [
   { id: 'cat-news-1', nama_kategori: 'Kegiatan' },
@@ -341,6 +341,48 @@ export const ORGANISASI_SEED: Organisasi[] = [
     jabatan: 'Ketua Islamic Student Business Incubator (ISBI)',
     foto: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=300',
     urutan: 8
+  }
+];
+
+export const HERO_SEED: HeroSlide[] = [
+  {
+    id: 'hero-1',
+    title: "Mencetak Mahasiswa Pengusaha Berkemajuan",
+    subtitle: "Inkubator Sentra Bisnis dan Inovasi Universitas Muhammadiyah Purwokerto. Kembangkan ide bisnismu menjadi nyata bersama kami.",
+    ctaText: "Daftar Sekarang",
+    ctaTab: "kontak",
+    secondaryText: "Pelajari Lebih Lanjut",
+    secondaryTab: "program",
+    image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&q=80&w=1200",
+    badge: "Inkubasi Bisnis UMP",
+    gradient: "from-[#032050] via-[#032050]/80 to-transparent",
+    urutan: 1
+  },
+  {
+    id: 'hero-2',
+    title: "Dana Hibah & Mentoring Bisnis P2MW 2026",
+    subtitle: "Kesempatan emas bagi kelompok usaha mahasiswa UMP untuk mendapatkan dana pembinaan, pameran produk, dan sertifikasi usaha gratis.",
+    ctaText: "Panduan Pendaftaran",
+    ctaTab: "kontak",
+    secondaryText: "Daftar Tenant",
+    secondaryTab: "program",
+    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1200",
+    badge: "Program Hibah P2MW",
+    gradient: "from-[#0a192f] via-[#0a192f]/85 to-transparent",
+    urutan: 2
+  },
+  {
+    id: 'hero-3',
+    title: "Prestasi Wirausaha Tingkat Nasional",
+    subtitle: "ISBI UMP bangga mengantarkan Kedai Kopi Kandang menyabet Juara 1 Nasional Kategori Makanan & Minuman di KMI Expo Kemendikbudristek.",
+    ctaText: "Lihat Cerita Sukses",
+    ctaTab: "prestasi",
+    secondaryText: "Direktori UMKM",
+    secondaryTab: "umkm",
+    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=1200",
+    badge: "Delegasi UMP Menang",
+    gradient: "from-[#042f2e] via-[#042f2e]/85 to-transparent",
+    urutan: 3
   }
 ];
 

@@ -3,13 +3,14 @@ import { motion } from 'motion/react';
 import { ArrowRight, BookOpen, Quote, Sparkles, Star, Trophy, Users } from 'lucide-react';
 import Hero from './Hero';
 import QuickAccess from './QuickAccess';
-import { Program, Berita, UMKM, GaleriFoto } from '../types';
+import { Program, Berita, UMKM, GaleriFoto, HeroSlide } from '../types';
 
 interface PageBerandaProps {
   programs: Program[];
   beritaList: Berita[];
   umkmList: UMKM[];
   photos: GaleriFoto[];
+  heroSlides: HeroSlide[];
   setActiveTab: (tab: string) => void;
   setSelectedBerita: (berita: Berita | null) => void;
 }
@@ -19,6 +20,7 @@ export default function PageBeranda({
   beritaList,
   umkmList,
   photos,
+  heroSlides,
   setActiveTab,
   setSelectedBerita
 }: PageBerandaProps) {
@@ -76,7 +78,7 @@ export default function PageBeranda({
   return (
     <div className="w-full flex flex-col bg-white">
       {/* 1. Hero Banner Component */}
-      <Hero onCtaClick={setActiveTab} />
+      <Hero slides={heroSlides} onCtaClick={setActiveTab} />
 
       {/* 2. Quick Access Grid Component */}
       <QuickAccess onItemClick={setActiveTab} />

@@ -12,7 +12,8 @@ import {
   KATEGORI_UMKM_SEED,
   PRESTASI_SEED,
   PROFIL_SEED,
-  ORGANISASI_SEED
+  ORGANISASI_SEED,
+  HERO_SEED
 } from './src/data';
 
 dotenv.config();
@@ -190,6 +191,23 @@ async function initDb() {
       )
     `);
 
+    console.log('Membuat tabel hero_slides...');
+    await connection.query(`
+      CREATE TABLE IF NOT EXISTS hero_slides (
+        id VARCHAR(50) PRIMARY KEY,
+        title VARCHAR(255) NOT NULL,
+        subtitle TEXT,
+        ctaText VARCHAR(100),
+        ctaTab VARCHAR(50),
+        secondaryText VARCHAR(100),
+        secondaryTab VARCHAR(50),
+        image VARCHAR(500),
+        badge VARCHAR(100),
+        gradient VARCHAR(255),
+        urutan INT DEFAULT 0
+      )
+    `);
+
     console.log('Semua tabel berhasil diverifikasi/dibuat.');
 
     // 2. Seed Data Awal jika kosong
@@ -345,6 +363,18 @@ async function initDb() {
         await connection.query(
           'INSERT INTO organisasi (id, nama, jabatan, foto, urutan) VALUES (?, ?, ?, ?, ?)',
           [member.id, member.nama, member.jabatan, member.foto, member.urutan]
+        );
+      }
+    }
+
+    // Seed Hero Slides
+    const [heroCountRows] = await connection.query<any[]>('SELECT COUNT(*) as count FROM hero_slides');
+    if (heroCountRows[0].count === 0) {
+      console.log('Seeding data hero slides...');
+      for (const slide of HERO_SEED) {
+        await connection.query(
+          'INSERT INTO hero_slides (id, title, subtitle, ctaText, ctaTab, secondaryText, secondaryTab, image, badge, gradient, urutan) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+          [slide.id, slide.title, slide.subtitle, slide.ctaText, slide.ctaTab, slide.secondaryText, slide.secondaryTab, slide.image, slide.badge, slide.gradient, slide.urutan]
         );
       }
     }

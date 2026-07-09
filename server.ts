@@ -136,6 +136,7 @@ app.get('/api/all-data', async (req, res) => {
     const [prestasi] = await pool.query('SELECT * FROM prestasi');
     const [profilRows] = await pool.query<any[]>('SELECT * FROM profil WHERE id = "main_profil"');
     const [organisasi] = await pool.query('SELECT * FROM organisasi ORDER BY urutan ASC');
+    const [heroSlides] = await pool.query('SELECT * FROM hero_slides ORDER BY urutan ASC');
 
     let profil = null;
     if (profilRows.length > 0) {
@@ -161,7 +162,8 @@ app.get('/api/all-data', async (req, res) => {
         pendaftaran: [], // Dikosongkan demi alasan privasi data pendaftar (hanya diakses via /api/pendaftaran oleh admin)
         prestasi,
         profil,
-        organisasi
+        organisasi,
+        heroSlides
       }
     });
   } catch (err: any) {
@@ -565,6 +567,54 @@ app.post('/api/sync/organisasi', authenticateAdmin, async (req, res) => {
     await connection.rollback();
     console.error('Error syncing organisasi:', err);
     res.status(500).json({ success: false, error: 'Gagal sinkronisasi data organisasi.' });
+  } finally {
+    connection.release();
+  }
+});
+
+// Sync Hero Slides
+app.post('/api/sync/hero', authenticateAdmin, async (req, res) => {
+  const items = req.body as any[];
+  if (!Array.isArray(items)) {
+    return res.status(400).json({ success: false, error: 'Request body must be an array' });
+  }
+
+  const connection = await pool.getConnection();
+  try {
+    await connection.beginTransaction();
+
+    if (items.length > 0) {
+      const ids = items.map(item => item.id);
+      await connection.query('DELETE FROM hero_slides WHERE id NOT IN (?)', [ids]);
+    } else {
+      await connection.query('DELETE FROM hero_slides');
+    }
+
+    for (const slide of items) {
+      await connection.query(
+        `INSERT INTO hero_slides (id, title, subtitle, ctaText, ctaTab, secondaryText, secondaryTab, image, badge, gradient, urutan)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+         ON DUPLICATE KEY UPDATE
+         title = VALUES(title),
+         subtitle = VALUES(subtitle),
+         ctaText = VALUES(ctaText),
+         ctaTab = VALUES(ctaTab),
+         secondaryText = VALUES(secondaryText),
+         secondaryTab = VALUES(secondaryTab),
+         image = VALUES(image),
+         badge = VALUES(badge),
+         gradient = VALUES(gradient),
+         urutan = VALUES(urutan)`,
+        [slide.id, slide.title, slide.subtitle, slide.ctaText, slide.ctaTab, slide.secondaryText, slide.secondaryTab, slide.image, slide.badge, slide.gradient, slide.urutan]
+      );
+    }
+
+    await connection.commit();
+    res.json({ success: true, message: 'Hero slides synced successfully' });
+  } catch (err: any) {
+    await connection.rollback();
+    console.error('Error syncing hero slides:', err);
+    res.status(500).json({ success: false, error: 'Gagal sinkronisasi data hero slides.' });
   } finally {
     connection.release();
   }

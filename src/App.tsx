@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
 // Types
-import { Program, Berita, UMKM, GaleriAlbum, GaleriFoto, Pendaftaran, Prestasi, ProfilData, Organisasi } from './types';
+import { Program, Berita, UMKM, GaleriAlbum, GaleriFoto, Pendaftaran, Prestasi, ProfilData, Organisasi, HeroSlide } from './types';
 
 // Seed Data
 import { 
@@ -16,7 +16,8 @@ import {
   KATEGORI_UMKM_SEED,
   PRESTASI_SEED,
   PROFIL_SEED,
-  ORGANISASI_SEED
+  ORGANISASI_SEED,
+  HERO_SEED
 } from './data';
 
 // Custom Components
@@ -114,6 +115,7 @@ export default function App() {
   const [prestasiList, setPrestasiList] = useState<Prestasi[]>(PRESTASI_SEED);
   const [profilData, setProfilData] = useState<ProfilData>(PROFIL_SEED);
   const [organisasiList, setOrganisasiList] = useState<Organisasi[]>(ORGANISASI_SEED);
+  const [heroSlides, setHeroSlides] = useState<HeroSlide[]>(HERO_SEED);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // Active navigation tab
@@ -151,7 +153,7 @@ export default function App() {
         const response = await fetch('/api/all-data');
         const res = await response.json();
         if (res.success && res.data) {
-          const { programs, berita, umkm, albums, photos, pendaftaran, prestasi, profil, organisasi } = res.data;
+          const { programs, berita, umkm, albums, photos, pendaftaran, prestasi, profil, organisasi, heroSlides } = res.data;
           if (programs) setPrograms(programs);
           if (berita) setBeritaList(berita);
           if (umkm) setUmkmList(umkm);
@@ -161,6 +163,7 @@ export default function App() {
           if (prestasi) setPrestasiList(prestasi);
           if (profil) setProfilData(profil);
           if (organisasi) setOrganisasiList(organisasi);
+          if (heroSlides) setHeroSlides(heroSlides);
         }
       } catch (err) {
         console.warn('Gagal mengambil data dari API TiDB, menggunakan cadangan LocalStorage/Seed:', err);
@@ -174,6 +177,7 @@ export default function App() {
         setPrestasiList(getSafeLocalStorage('isbi_prestasi', PRESTASI_SEED));
         setProfilData(getSafeLocalStorage('isbi_profil', PROFIL_SEED));
         setOrganisasiList(getSafeLocalStorage('isbi_organisasi', ORGANISASI_SEED));
+        setHeroSlides(getSafeLocalStorage('isbi_hero_slides', HERO_SEED));
       } finally {
         setIsLoading(false);
       }
@@ -324,6 +328,15 @@ export default function App() {
     });
   };
 
+  const setHeroSlidesWithSync: React.Dispatch<React.SetStateAction<HeroSlide[]>> = (value) => {
+    setHeroSlides(prev => {
+      const next = typeof value === 'function' ? (value as Function)(prev) : value;
+      safeSetLocalStorage('isbi_hero_slides', next);
+      setTimeout(() => syncToApi('hero', next), 0);
+      return next;
+    });
+  };
+
   // --- ACTIONS ---
   const handleLoginSuccess = (token: string) => {
     setIsAdminLoggedIn(true);
@@ -351,6 +364,7 @@ export default function App() {
     setPrestasiList(PRESTASI_SEED);
     setProfilData(PROFIL_SEED);
     setOrganisasiList(ORGANISASI_SEED);
+    setHeroSlides(HERO_SEED);
     setSelectedBerita(null);
 
     // Sync ke API database
@@ -363,6 +377,7 @@ export default function App() {
     await syncToApi('prestasi', PRESTASI_SEED);
     await syncToApi('profil', PROFIL_SEED);
     await syncToApi('organisasi', ORGANISASI_SEED);
+    await syncToApi('hero', HERO_SEED);
 
     // Bersihkan LocalStorage
     localStorage.removeItem('isbi_programs');
@@ -374,6 +389,7 @@ export default function App() {
     localStorage.removeItem('isbi_prestasi');
     localStorage.removeItem('isbi_profil');
     localStorage.removeItem('isbi_organisasi');
+    localStorage.removeItem('isbi_hero_slides');
   };
 
   // --- DYNAMIC VIEW ROUTER ---
@@ -386,6 +402,7 @@ export default function App() {
             beritaList={beritaList}
             umkmList={umkmList}
             photos={photos}
+            heroSlides={heroSlides}
             setActiveTab={setActiveTab}
             setSelectedBerita={setSelectedBerita}
           />
@@ -478,13 +495,25 @@ export default function App() {
             setProfilData={setProfilDataWithSync}
             organisasiList={organisasiList}
             setOrganisasiList={setOrganisasiListWithSync}
+            heroSlides={heroSlides}
+            setHeroSlides={setHeroSlidesWithSync}
             kategoriBerita={KATEGORI_BERITA_SEED}
             kategoriUMKM={KATEGORI_UMKM_SEED}
             onResetData={handleResetData}
           />
         );
       default:
-        return <PageBeranda programs={programs} beritaList={beritaList} umkmList={umkmList} photos={photos} setActiveTab={setActiveTab} setSelectedBerita={setSelectedBerita} />;
+        return (
+          <PageBeranda 
+            programs={programs} 
+            beritaList={beritaList} 
+            umkmList={umkmList} 
+            photos={photos} 
+            heroSlides={heroSlides}
+            setActiveTab={setActiveTab} 
+            setSelectedBerita={setSelectedBerita} 
+          />
+        );
     }
   };
 

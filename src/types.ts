@@ -119,3 +119,17 @@ export interface Organisasi {
   foto: string;
   urutan: number;
 }
+
+export interface HeroSlide {
+  id: string;
+  title: string;
+  subtitle: string;
+  ctaText: string;
+  ctaTab: string;
+  secondaryText: string;
+  secondaryTab: string;
+  image: string;
+  badge: string;
+  gradient: string;
+  urutan: number;
+}
