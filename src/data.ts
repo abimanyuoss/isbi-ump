@@ -126,7 +126,7 @@ export const UMKM_SEED: UMKM[] = [
     id: 'umkm-1',
     admin_id: 'admin-1',
     kategori_id: 'cat-umkm-1', // Kuliner
-    nama_usaha: 'Kedai Kopi Kandang (Tim Coffipa)',
+    nama_usaha: 'Coffipa Coffee (Tim Coffipa)',
     nama_mahasiswa: 'Zidan Al-Ghifari & Tim',
     program_studi: 'Agribisnis, Fakultas Pertanian',
     deskripsi: 'Kedai kopi berkonsep industrial pedesaan yang menyajikan kopi lokal Banyumas berkualitas tinggi yang diperoleh langsung dari petani lokal dengan prinsip fair trade.',
