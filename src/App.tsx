@@ -169,7 +169,27 @@ export default function App() {
           const { programs, berita, umkm, albums, photos, pendaftaran, prestasi, profil, organisasi, heroSlides } = res.data;
           if (programs) setPrograms(programs);
           if (berita) setBeritaList(berita);
-          if (umkm) setUmkmList(umkm);
+          
+          if (umkm && Array.isArray(umkm) && umkm.length > 0) {
+            const merged = UMKM_SEED.map(seed => {
+              const match = umkm.find((u: UMKM) => u.id === seed.id);
+              if (match) {
+                return {
+                  ...seed,
+                  ...match,
+                  foto_pendukung: (match.foto_pendukung && Array.isArray(match.foto_pendukung) && match.foto_pendukung.length > 0)
+                    ? match.foto_pendukung
+                    : seed.foto_pendukung
+                };
+              }
+              return seed;
+            });
+            const extras = umkm.filter((u: UMKM) => !UMKM_SEED.some(s => s.id === u.id));
+            setUmkmList([...merged, ...extras]);
+          } else {
+            setUmkmList(UMKM_SEED);
+          }
+
           if (albums) setAlbums(albums);
           if (photos) setPhotos(photos);
           if (pendaftaran) setPendaftaranList(pendaftaran);
@@ -179,8 +199,8 @@ export default function App() {
           if (heroSlides) setHeroSlides(heroSlides);
         }
       } catch (err) {
-        console.warn('Gagal mengambil data dari API TiDB, menggunakan cadangan LocalStorage/Seed:', err);
-        // Fallback ke LocalStorage
+        console.warn('Gagal mengambil data dari API, menggunakan cadangan LocalStorage/Seed:', err);
+        // Fallback ke LocalStorage/Seed
         setPrograms(getSafeLocalStorage('isbi_programs', PROGRAM_SEED));
         setBeritaList(getSafeLocalStorage('isbi_berita', BERITA_SEED));
         setUmkmList(getSafeLocalStorage('isbi_umkm', UMKM_SEED));
