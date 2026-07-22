@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Store, User, BookOpen, MessageSquare, Compass, Eye, X, Award, ShieldAlert, ArrowLeft, Share2, Check } from 'lucide-react';
+import { Store, User, BookOpen, MessageSquare, Compass, Eye, X, Award, ShieldAlert, ArrowLeft, Share2, Check, FileText, Maximize2 } from 'lucide-react';
 import { UMKM, KategoriUMKM } from '../types';
 
 interface PageUMKMProps {
@@ -13,6 +13,7 @@ interface PageUMKMProps {
 export default function PageUMKM({ umkmList, kategoriUMKM, selectedUmkm, setSelectedUmkm }: PageUMKMProps) {
   const [selectedCatId, setSelectedCatId] = useState<string>('all');
   const [copied, setCopied] = useState<boolean>(false);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
 
   const isVideoUrl = (url: string) => {
     if (!url) return false;
@@ -125,6 +126,41 @@ export default function PageUMKM({ umkmList, kategoriUMKM, selectedUmkm, setSele
               </div>
             </div>
 
+            {/* Supporting Images Gallery (NIB Document & Activity Photos) */}
+            {selectedUmkm.foto_pendukung && selectedUmkm.foto_pendukung.length > 0 && (
+              <div className="flex flex-col gap-2.5 text-left border-t border-slate-200 pt-5">
+                <div className="flex items-center gap-1.5">
+                  <FileText className="w-4 h-4 text-emerald-700" />
+                  <span className="text-[10px] text-slate-500 font-extrabold uppercase tracking-wider">
+                    Dokumen Legalitas (NIB) & Foto Kegiatan Usaha
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-1">
+                  {selectedUmkm.foto_pendukung.map((imgUrl, idx) => (
+                    <div 
+                      key={idx} 
+                      onClick={() => setPreviewImage(imgUrl)}
+                      className="relative group h-28 rounded-xl overflow-hidden border border-slate-200 bg-slate-100 cursor-pointer shadow-sm hover:shadow-md transition-all"
+                    >
+                      <img 
+                        src={imgUrl} 
+                        alt={`Pendukung ${idx + 1}`} 
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        referrerPolicy="no-referrer"
+                      />
+                      <div className="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-1 text-white text-[10px] font-bold">
+                        <Maximize2 className="w-4 h-4" />
+                        <span>Pratinjau</span>
+                      </div>
+                      <span className="absolute bottom-1.5 left-1.5 bg-slate-900/80 text-white text-[9px] font-semibold px-2 py-0.5 rounded backdrop-blur-sm">
+                        {idx === 0 ? 'NIB / Legalitas' : `Dokumen / Kegiatan ${idx + 1}`}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Journey & Incubation Story */}
             <div className="flex flex-col gap-2 text-left">
               <span className="text-[10px] text-amber-600 font-extrabold uppercase tracking-wider flex items-center gap-1">
@@ -157,6 +193,27 @@ export default function PageUMKM({ umkmList, kategoriUMKM, selectedUmkm, setSele
 
           </div>
         </div>
+
+        {/* Lightbox Image Preview Modal */}
+        {previewImage && (
+          <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => setPreviewImage(null)}>
+            <div className="relative max-w-4xl max-h-[90vh] bg-white rounded-2xl p-2 overflow-hidden shadow-2xl" onClick={e => e.stopPropagation()}>
+              <button 
+                onClick={() => setPreviewImage(null)}
+                className="absolute top-4 right-4 bg-slate-900/80 hover:bg-slate-900 text-white p-2 rounded-full z-10 transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+              <img 
+                src={previewImage} 
+                alt="Preview Dokumen" 
+                className="w-full h-auto max-h-[80vh] object-contain rounded-xl"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+          </div>
+        )}
+
       </div>
     );
   }

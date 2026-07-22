@@ -274,8 +274,8 @@ async function initDb() {
       console.log('Seeding data UMKM...');
       for (const u of UMKM_SEED) {
         await connection.query(
-          'INSERT INTO umkm (id, admin_id, kategori_id, nama_usaha, nama_mahasiswa, program_studi, deskripsi, histori_usaha, foto_produk, kontak, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-          [u.id, u.admin_id, u.kategori_id, u.nama_usaha, u.nama_mahasiswa, u.program_studi, u.deskripsi, u.histori_usaha, u.foto_produk, u.kontak, u.status]
+          'INSERT INTO umkm (id, admin_id, kategori_id, nama_usaha, nama_mahasiswa, program_studi, deskripsi, histori_usaha, foto_produk, foto_pendukung, kontak, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+          [u.id, u.admin_id, u.kategori_id, u.nama_usaha, u.nama_mahasiswa, u.program_studi, u.deskripsi, u.histori_usaha, u.foto_produk, JSON.stringify(u.foto_pendukung || []), u.kontak, u.status]
         );
       }
     }

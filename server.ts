@@ -151,12 +151,17 @@ app.get('/api/all-data', async (req, res) => {
       }
     }
 
+    const formattedUmkm = (umkm as any[]).map(u => ({
+      ...u,
+      foto_pendukung: u.foto_pendukung ? (typeof u.foto_pendukung === 'string' ? (function() { try { return JSON.parse(u.foto_pendukung); } catch(_) { return []; } })() : u.foto_pendukung) : []
+    }));
+
     res.json({
       success: true,
       data: {
         programs,
         berita,
-        umkm,
+        umkm: formattedUmkm,
         albums,
         photos,
         pendaftaran: [], // Dikosongkan demi alasan privasi data pendaftar (hanya diakses via /api/pendaftaran oleh admin)
@@ -286,8 +291,8 @@ app.post('/api/sync/umkm', authenticateAdmin, async (req, res) => {
 
     for (const u of items) {
       await connection.query(
-        `INSERT INTO umkm (id, admin_id, kategori_id, nama_usaha, nama_mahasiswa, program_studi, deskripsi, histori_usaha, foto_produk, kontak, status)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `INSERT INTO umkm (id, admin_id, kategori_id, nama_usaha, nama_mahasiswa, program_studi, deskripsi, histori_usaha, foto_produk, foto_pendukung, kontak, status)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
          ON DUPLICATE KEY UPDATE
          admin_id = VALUES(admin_id),
          kategori_id = VALUES(kategori_id),
@@ -297,9 +302,10 @@ app.post('/api/sync/umkm', authenticateAdmin, async (req, res) => {
          deskripsi = VALUES(deskripsi),
          histori_usaha = VALUES(histori_usaha),
          foto_produk = VALUES(foto_produk),
+         foto_pendukung = VALUES(foto_pendukung),
          kontak = VALUES(kontak),
          status = VALUES(status)`,
-        [u.id, u.admin_id, u.kategori_id, u.nama_usaha, u.nama_mahasiswa, u.program_studi, u.deskripsi, u.histori_usaha, u.foto_produk, u.kontak, u.status]
+        [u.id, u.admin_id, u.kategori_id, u.nama_usaha, u.nama_mahasiswa, u.program_studi, u.deskripsi, u.histori_usaha, u.foto_produk, JSON.stringify(u.foto_pendukung || []), u.kontak, u.status]
       );
     }
 

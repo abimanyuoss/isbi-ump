@@ -164,6 +164,7 @@ export default function AdminDashboard({
     deskripsi: '',
     histori_usaha: '',
     foto_produk: '',
+    foto_pendukung: '',
     kontak: '',
     status: 'Aktif',
   });
@@ -549,6 +550,7 @@ export default function AdminDashboard({
         deskripsi: umkm.deskripsi,
         histori_usaha: umkm.histori_usaha,
         foto_produk: umkm.foto_produk,
+        foto_pendukung: umkm.foto_pendukung ? umkm.foto_pendukung.join(', ') : '',
         kontak: umkm.kontak,
         status: umkm.status,
       });
@@ -562,6 +564,7 @@ export default function AdminDashboard({
         deskripsi: '',
         histori_usaha: '',
         foto_produk: 'https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&q=80&w=800',
+        foto_pendukung: '',
         kontak: '6281234567890',
         status: 'Aktif',
       });
@@ -585,6 +588,10 @@ export default function AdminDashboard({
       cleanedPhone = '62' + cleanedPhone;
     }
 
+    const parsedFotoPendukung = umkmFormData.foto_pendukung
+      ? umkmFormData.foto_pendukung.split(/[\n,]+/).map(s => s.trim()).filter(Boolean)
+      : [];
+
     if (editingUmkm) {
       setUmkmList(prev => prev.map(u => u.id === editingUmkm.id ? {
         ...u,
@@ -595,6 +602,7 @@ export default function AdminDashboard({
         deskripsi: umkmFormData.deskripsi,
         histori_usaha: umkmFormData.histori_usaha,
         foto_produk: umkmFormData.foto_produk,
+        foto_pendukung: parsedFotoPendukung,
         kontak: cleanedPhone,
         status: umkmFormData.status,
       } : u));
@@ -610,6 +618,7 @@ export default function AdminDashboard({
         deskripsi: umkmFormData.deskripsi,
         histori_usaha: umkmFormData.histori_usaha,
         foto_produk: umkmFormData.foto_produk || 'https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&q=80&w=800',
+        foto_pendukung: parsedFotoPendukung,
         kontak: cleanedPhone || '6281234567890',
         status: umkmFormData.status,
       };
@@ -1646,6 +1655,46 @@ export default function AdminDashboard({
                             />
                           </label>
                         </div>
+                      </div>
+
+                      <div className="flex flex-col gap-1 md:col-span-2 text-left">
+                        <label className="font-bold text-slate-700 flex items-center justify-between">
+                          <span>Foto Pendukung (Dokumen NIB / Legalitas & Foto Kegiatan Usaha)</span>
+                          {isUploading && <span className="text-[10px] text-emerald-600 font-bold animate-pulse">Mengunggah...</span>}
+                        </label>
+                        <div className="flex gap-2">
+                          <textarea 
+                            rows={2}
+                            value={umkmFormData.foto_pendukung}
+                            onChange={(e) => setUmkmFormData({ ...umkmFormData, foto_pendukung: e.target.value })}
+                            placeholder="Pisahkan URL gambar dengan koma atau baris baru (Contoh: Foto NIB, Foto Kegiatan 1, Foto Kegiatan 2)"
+                            className="p-2.5 border border-slate-200 rounded-lg flex-1 text-xs font-mono"
+                          ></textarea>
+                          <label className="bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 font-bold px-3 py-2 rounded-lg flex items-center gap-1.5 cursor-pointer shrink-0 transition-colors h-fit">
+                            <Upload className="w-3.5 h-3.5 text-slate-500" />
+                            <span className="text-[10px]">Tambah File</span>
+                            <input 
+                              type="file" 
+                              accept="image/*,video/*"
+                              className="hidden" 
+                              onChange={async (e) => {
+                                const file = e.target.files?.[0];
+                                if (file) {
+                                  const url = await handleFileUpload(file);
+                                  if (url) {
+                                    const current = umkmFormData.foto_pendukung.trim();
+                                    const updated = current ? `${current}, ${url}` : url;
+                                    setUmkmFormData({ ...umkmFormData, foto_pendukung: updated });
+                                    showAlert('File pendukung berhasil diunggah!');
+                                  }
+                                }
+                              }} 
+                            />
+                          </label>
+                        </div>
+                        <span className="text-[10px] text-slate-400">
+                          Unggah foto NIB / Izin Usaha dan foto kegiatan operasional untuk memperlengkap tampilan detail UMKM.
+                        </span>
                       </div>
 
                       <div className="flex flex-col gap-1 md:col-span-2">

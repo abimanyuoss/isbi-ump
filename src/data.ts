@@ -132,6 +132,11 @@ export const UMKM_SEED: UMKM[] = [
     deskripsi: 'Kedai kopi berkonsep industrial pedesaan yang menyajikan kopi lokal Banyumas berkualitas tinggi yang diperoleh langsung dari petani lokal dengan prinsip fair trade.',
     histori_usaha: 'Kopi Kandang dirintis oleh Zidan sejak semester 3 berawal dari tugas kuliah kewirausahaan. Mengalami kesulitan modal awal, Zidan mengajukan pendanaan ISBI UMP dan berhasil lolos mendapatkan modal pembinaan P2MW sebesar Rp 12 Juta. Modal tersebut digunakan untuk menyewa lahan kecil di dekat kampus, mendesain ulang kedai dengan nuansa kandang estetis yang disenangi mahasiswa, dan kini sudah memiliki 3 orang karyawan dan melayani puluhan cangkir kopi setiap hari.',
     foto_produk: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&q=80&w=800',
+    foto_pendukung: [
+      'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=800', // Foto Dokumen NIB / Legalitas
+      'https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&q=80&w=800', // Foto Kegiatan Barista
+      'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=800'  // Foto Suasana Kedai
+    ],
     kontak: '6281234567890',
     status: 'Aktif'
   },
@@ -145,6 +150,10 @@ export const UMKM_SEED: UMKM[] = [
     deskripsi: 'Jenama busana batik ready-to-wear dengan sentuhan potongan modern kekinian yang ramah untuk selera anak muda tanpa menghilangkan nilai luhur filosofi motif khas Banyumasan.',
     histori_usaha: 'Aisyah yang memiliki kecintaan mendalam pada budaya lokal memulai usaha ini dari kamar kosnya dengan modal awal tabungan pribadi Rp 500 Ribu. Setelah bergabung dalam kelas pembinaan ISBI UMP, usahanya dibimbing untuk melakukan riset pasar digital dan pendaftaran merek dagang. Kini Batik Modern Banyumas aktif memproduksi kemeja, outer, dan scarf yang terjual ratusan pcs setiap bulannya secara online di seluruh Indonesia.',
     foto_produk: 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=800',
+    foto_pendukung: [
+      'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=800', // NIB / Sertifikat Merek
+      'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&q=80&w=800'  // Foto Proses Produksi Batik
+    ],
     kontak: '6282345678901',
     status: 'Aktif'
   },
@@ -158,6 +167,10 @@ export const UMKM_SEED: UMKM[] = [
     deskripsi: 'Produk tas, keranjang, dan dekorasi rumah ramah lingkungan yang dianyam secara handmade dari serat daun pandan duri kering oleh pengrajin lansia di desa Kembaran.',
     histori_usaha: 'Melihat potensi bahan baku daun pandan yang melimpah dan banyaknya lansia non-produktif di desanya, Bambang berinovasi mendesain tas anyaman modis dengan sentuhan kulit sintetis. Melalui program inkubasi ISBI, Bambang dibantu menyusun standarisasi kualitas produk (Quality Control) dan strategi pemasaran B2B. Produk anyamannya kini sering dipesan oleh instansi pemerintahan untuk suvenir seminar (goodie bag) resmi.',
     foto_produk: 'https://images.unsplash.com/photo-1535157833138-d3c19af30059?auto=format&fit=crop&q=80&w=800',
+    foto_pendukung: [
+      'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=800', // NIB Izin Usaha
+      'https://images.unsplash.com/photo-1528458909336-e7a0adfac1d5?auto=format&fit=crop&q=80&w=800'  // Foto Pengrajin Menganyam
+    ],
     kontak: '6283456789012',
     status: 'Aktif'
   },
@@ -171,6 +184,10 @@ export const UMKM_SEED: UMKM[] = [
     deskripsi: 'Layanan jasa desain grafis, pembuatan media presentasi, pengerjaan UI/UX aplikasi, hingga jasa percetakan tugas akhir yang cepat, ramah kantong, dan berkualitas bagi mahasiswa.',
     histori_usaha: 'Rian memulai jasanya bermodalkan laptop spesifikasi standar di perpustakaan kampus. Melalui jaringan relasi inkubasi bisnis ISBI UMP, ia dipertemukan dengan rekanan percetakan besar yang bersedia memberikan harga reseller. Kini usahanya bertransformasi menjadi agensi kreatif kecil beranggotakan 4 mahasiswa desainer yang menangani kebutuhan promosi UMKM lokal maupun organisasi internal mahasiswa.',
     foto_produk: 'https://images.unsplash.com/photo-1561070791-26c113006238?auto=format&fit=crop&q=80&w=800',
+    foto_pendukung: [
+      'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=800', // NIB NIB/Sertifikat Legalitas
+      'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800'  // Foto Sesi Diskusi Desain Tim
+    ],
     kontak: '6284567890123',
     status: 'Aktif'
   }

@@ -77,6 +77,7 @@ export interface UMKM {
   deskripsi: string;
   histori_usaha: string;
   foto_produk: string;
+  foto_pendukung?: string[]; // Additional supporting images (NIB, activity photos, etc.)
   kontak: string; // WhatsApp number
   status: 'Aktif' | 'Alumni' | string;
 }
