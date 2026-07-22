@@ -107,6 +107,9 @@ async function initDb() {
         status VARCHAR(50)
       )
     `);
+    try {
+      await connection.query('ALTER TABLE umkm ADD COLUMN foto_pendukung TEXT');
+    } catch (_) {}
 
     console.log('Membuat tabel albums...');
     await connection.query(`
@@ -269,16 +272,26 @@ async function initDb() {
       }
     }
 
-    // Seed UMKM
-    const [umkmRows] = await connection.query<any[]>('SELECT COUNT(*) as count FROM umkm');
-    if (umkmRows[0].count === 0) {
-      console.log('Seeding data UMKM...');
-      for (const u of UMKM_SEED) {
-        await connection.query(
-          'INSERT INTO umkm (id, admin_id, kategori_id, nama_usaha, nama_mahasiswa, program_studi, deskripsi, histori_usaha, foto_produk, foto_pendukung, kontak, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-          [u.id, u.admin_id, u.kategori_id, u.nama_usaha, u.nama_mahasiswa, u.program_studi, u.deskripsi, u.histori_usaha, u.foto_produk, JSON.stringify(u.foto_pendukung || []), u.kontak, u.status]
-        );
-      }
+    // Seed UMKM (Upsert all items)
+    console.log('Seeding & updating data UMKM...');
+    for (const u of UMKM_SEED) {
+      await connection.query(
+        `INSERT INTO umkm (id, admin_id, kategori_id, nama_usaha, nama_mahasiswa, program_studi, deskripsi, histori_usaha, foto_produk, foto_pendukung, kontak, status) 
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+         ON DUPLICATE KEY UPDATE
+         admin_id = VALUES(admin_id),
+         kategori_id = VALUES(kategori_id),
+         nama_usaha = VALUES(nama_usaha),
+         nama_mahasiswa = VALUES(nama_mahasiswa),
+         program_studi = VALUES(program_studi),
+         deskripsi = VALUES(deskripsi),
+         histori_usaha = VALUES(histori_usaha),
+         foto_produk = VALUES(foto_produk),
+         foto_pendukung = VALUES(foto_pendukung),
+         kontak = VALUES(kontak),
+         status = VALUES(status)`,
+        [u.id, u.admin_id, u.kategori_id, u.nama_usaha, u.nama_mahasiswa, u.program_studi, u.deskripsi, u.histori_usaha, u.foto_produk, JSON.stringify(u.foto_pendukung || []), u.kontak, u.status]
+      );
     }
 
     // Seed Albums
