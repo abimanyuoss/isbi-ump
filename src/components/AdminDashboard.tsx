@@ -2189,7 +2189,7 @@ export default function AdminDashboard({
                           required
                           value={prestasiFormData.tim_usaha}
                           onChange={(e) => setPrestasiFormData({ ...prestasiFormData, tim_usaha: e.target.value })}
-                          placeholder="Contoh: Kedai Kopi Kandang"
+                          placeholder="Contoh: Tim Ambara (2024)"
                           className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-xs font-medium focus:outline-none focus:border-emerald-500 bg-white"
                         />
                       </div>

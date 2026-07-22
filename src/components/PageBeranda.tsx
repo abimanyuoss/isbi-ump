@@ -53,23 +53,23 @@ export default function PageBeranda({
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Testimonial list
+  // Testimonial list (Menggunakan tim usaha asli dari Drive)
   const testimonials = [
     {
       id: 1,
-      name: 'Zidan Al-Ghifari',
-      prodi: 'Agribisnis, Angkatan 2023',
-      brand: 'Kedai Kopi Kandang',
-      quote: 'ISBI UMP memberi saya bekal dari nol. Dana pembinaan P2MW sebesar Rp 12 Juta menyelamatkan kedai kami dari masalah modal awal, ditambah bimbingan mentor yang sangat peduli perkembangan usaha.',
+      name: 'M Sidiq Alfatoni',
+      prodi: 'Fakultas Ekonomi dan Bisnis',
+      brand: 'Tim Ambara (2024)',
+      quote: 'ISBI UMP memberi kami bekal nyata pengembangan inovasi transportasi digital angkutan kota (Ambara) Banyumas Raya dari tahap rintisan hingga komersialisasi.',
       avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200',
       rating: 5
     },
     {
       id: 2,
-      name: 'Aisyah Putri Rahayu',
-      prodi: 'Manajemen, Angkatan 2022',
-      brand: 'Batik Modern Banyumas',
-      quote: 'Melalui kelas dasar kewirausahaan ISBI, saya belajar riset digital market. Batik kosan saya sekarang bermutasi jadi brand resmi ber-NIB dengan ratusan pesanan nasional.',
+      name: 'Muhammad Farhan Auladi',
+      prodi: 'Fakultas Pertanian & Sains',
+      brand: 'Tim CIGBULB ECOSHIELD (2024)',
+      quote: 'Melalui pembinaan ISBI UMP, inovasi pestisida organik berbasis limbah puntung rokok dan kulit bawang merah kami mendapatkan pendampingan NIB dan jaringan kemitraan UMKM.',
       avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200',
       rating: 5
     }
