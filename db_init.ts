@@ -272,8 +272,11 @@ async function initDb() {
       }
     }
 
-    // Seed UMKM (Upsert all items)
+    // Seed UMKM (Purge old dummy items & Upsert all current Drive items)
     console.log('Seeding & updating data UMKM...');
+    await connection.query(
+      `DELETE FROM umkm WHERE id NOT LIKE 'umkm-2024-%' AND id NOT LIKE 'umkm-2025-%' AND id NOT LIKE 'umkm-2026-%'`
+    );
     for (const u of UMKM_SEED) {
       await connection.query(
         `INSERT INTO umkm (id, admin_id, kategori_id, nama_usaha, nama_mahasiswa, program_studi, deskripsi, histori_usaha, foto_produk, foto_pendukung, kontak, status) 
