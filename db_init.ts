@@ -102,6 +102,7 @@ async function initDb() {
         deskripsi TEXT,
         histori_usaha TEXT,
         foto_produk VARCHAR(500),
+        foto_pendukung TEXT,
         kontak VARCHAR(50),
         status VARCHAR(50)
       )

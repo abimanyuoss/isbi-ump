@@ -39,7 +39,7 @@ import PagePrestasi from './components/PagePrestasi';
 // Safe helper to read from local storage and prevent JSON parsing errors
 function getSafeLocalStorage<T>(key: string, defaultValue: T): T {
   try {
-    const CURRENT_DATA_VERSION = 'isbi_v2026_07_22_v5';
+    const CURRENT_DATA_VERSION = 'isbi_v2026_07_22_v6';
     if (localStorage.getItem('isbi_app_data_version') !== CURRENT_DATA_VERSION) {
       try {
         localStorage.removeItem('isbi_umkm');
@@ -171,19 +171,19 @@ export default function App() {
           if (berita) setBeritaList(berita);
           
           if (umkm && Array.isArray(umkm) && umkm.length > 0) {
+            // Seed is the source of truth for team names, descriptions, photos
+            // Database only provides values for dynamically-added fields or admin edits
             const merged = UMKM_SEED.map(seed => {
               const match = umkm.find((u: UMKM) => u.id === seed.id);
               if (match) {
                 return {
-                  ...seed,
-                  ...match,
-                  foto_pendukung: (match.foto_pendukung && Array.isArray(match.foto_pendukung) && match.foto_pendukung.length > 0)
-                    ? match.foto_pendukung
-                    : seed.foto_pendukung
+                  ...match,    // database first (base layer)
+                  ...seed,     // seed overwrites (source of truth for Drive data)
                 };
               }
               return seed;
             });
+            // Include any UMKM added by admin that aren't in seed
             const extras = umkm.filter((u: UMKM) => !UMKM_SEED.some(s => s.id === u.id));
             setUmkmList([...merged, ...extras]);
           } else {
