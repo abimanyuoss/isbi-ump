@@ -126,11 +126,11 @@ export const UMKM_SEED: UMKM[] = [
     id: 'umkm-1',
     admin_id: 'admin-1',
     kategori_id: 'cat-umkm-1', // Kuliner
-    nama_usaha: 'Kedai Kopi Kandang',
-    nama_mahasiswa: 'Zidan Al-Ghifari',
+    nama_usaha: 'Kedai Kopi Kandang (Tim Coffipa)',
+    nama_mahasiswa: 'Zidan Al-Ghifari & Tim',
     program_studi: 'Agribisnis, Fakultas Pertanian',
     deskripsi: 'Kedai kopi berkonsep industrial pedesaan yang menyajikan kopi lokal Banyumas berkualitas tinggi yang diperoleh langsung dari petani lokal dengan prinsip fair trade.',
-    histori_usaha: 'Kopi Kandang dirintis oleh Zidan sejak semester 3 berawal dari tugas kuliah kewirausahaan. Mengalami kesulitan modal awal, Zidan mengajukan pendanaan ISBI UMP dan berhasil lolos mendapatkan modal pembinaan P2MW sebesar Rp 12 Juta. Modal tersebut digunakan untuk menyewa lahan kecil di dekat kampus, mendesain ulang kedai dengan nuansa kandang estetis yang disenangi mahasiswa, dan kini sudah memiliki 3 orang karyawan dan melayani puluhan cangkir kopi setiap hari.',
+    histori_usaha: 'Kopi Kandang dirintis oleh tim mahasiswa sejak semester 3 berawal dari tugas kuliah kewirausahaan. Mengalami kesulitan modal awal, tim mengajukan pendanaan ISBI UMP dan berhasil lolos mendapatkan modal pembinaan P2MW. Modal tersebut digunakan untuk menyewa lahan kecil di dekat kampus, mendesain ulang kedai dengan nuansa kandang estetis yang disenangi mahasiswa, dan kini sudah memiliki karyawan dan melayani puluhan cangkir kopi setiap hari.',
     foto_produk: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&q=80&w=800',
     foto_pendukung: [
       'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=800', // Foto Dokumen NIB / Legalitas
@@ -144,15 +144,15 @@ export const UMKM_SEED: UMKM[] = [
     id: 'umkm-2',
     admin_id: 'admin-1',
     kategori_id: 'cat-umkm-2', // Fashion
-    nama_usaha: 'Batik Modern Banyumas',
-    nama_mahasiswa: 'Aisyah Putri Rahayu',
+    nama_usaha: 'Kojan Apparel (Tim Kojan)',
+    nama_mahasiswa: 'Aisyah Putri Rahayu & Tim',
     program_studi: 'Manajemen, Fakultas Ekonomi dan Bisnis',
-    deskripsi: 'Jenama busana batik ready-to-wear dengan sentuhan potongan modern kekinian yang ramah untuk selera anak muda tanpa menghilangkan nilai luhur filosofi motif khas Banyumasan.',
-    histori_usaha: 'Aisyah yang memiliki kecintaan mendalam pada budaya lokal memulai usaha ini dari kamar kosnya dengan modal awal tabungan pribadi Rp 500 Ribu. Setelah bergabung dalam kelas pembinaan ISBI UMP, usahanya dibimbing untuk melakukan riset pasar digital dan pendaftaran merek dagang. Kini Batik Modern Banyumas aktif memproduksi kemeja, outer, dan scarf yang terjual ratusan pcs setiap bulannya secara online di seluruh Indonesia.',
+    deskripsi: 'Jenama apparel dan busana batik modern ready-to-wear dengan sentuhan potongan kekinian yang ramah untuk selera anak muda tanpa menghilangkan nilai luhur filosofi motif khas Banyumasan.',
+    histori_usaha: 'Tim Kojan Apparel memulai usaha ini dari kamar kos dengan modal awal tabungan pribadi. Setelah bergabung dalam kelas pembinaan ISBI UMP, usahanya dibimbing untuk melakukan riset pasar digital dan pendaftaran NIB serta merek dagang. Kini Kojan Apparel aktif memproduksi kemeja, outer, dan busana yang terjual ratusan pcs setiap bulannya secara online di seluruh Indonesia.',
     foto_produk: 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=800',
     foto_pendukung: [
       'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=800', // NIB / Sertifikat Merek
-      'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&q=80&w=800'  // Foto Proses Produksi Batik
+      'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&q=80&w=800'  // Foto Proses Produksi
     ],
     kontak: '6282345678901',
     status: 'Aktif'
@@ -161,11 +161,11 @@ export const UMKM_SEED: UMKM[] = [
     id: 'umkm-3',
     admin_id: 'admin-1',
     kategori_id: 'cat-umkm-3', // Kerajinan
-    nama_usaha: 'Anyam Pandan Kembaran',
-    nama_mahasiswa: 'Bambang Triyono',
+    nama_usaha: 'CIGBULB ECOSHIELD (Tim Ecoshield)',
+    nama_mahasiswa: 'Bambang Triyono & Tim',
     program_studi: 'Teknik Industri, Fakultas Teknik & Sains',
-    deskripsi: 'Produk tas, keranjang, dan dekorasi rumah ramah lingkungan yang dianyam secara handmade dari serat daun pandan duri kering oleh pengrajin lansia di desa Kembaran.',
-    histori_usaha: 'Melihat potensi bahan baku daun pandan yang melimpah dan banyaknya lansia non-produktif di desanya, Bambang berinovasi mendesain tas anyaman modis dengan sentuhan kulit sintetis. Melalui program inkubasi ISBI, Bambang dibantu menyusun standarisasi kualitas produk (Quality Control) dan strategi pemasaran B2B. Produk anyamannya kini sering dipesan oleh instansi pemerintahan untuk suvenir seminar (goodie bag) resmi.',
+    deskripsi: 'Inovasi produk kerajinan dan solusi ramah lingkungan berbasis serat alam dan bahan daur ulang kreatif yang memberdayakan masyarakat lokal.',
+    histori_usaha: 'Melihat potensi bahan baku lokal dan limbah yang melimpah, tim berinovasi mendesain produk kerajinan modis bernilai jual tinggi. Melalui program inkubasi ISBI UMP, tim dibantu menyusun standarisasi kualitas produk (Quality Control) dan pendaftaran legalitas NIB serta strategi pemasaran B2B.',
     foto_produk: 'https://images.unsplash.com/photo-1535157833138-d3c19af30059?auto=format&fit=crop&q=80&w=800',
     foto_pendukung: [
       'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=800', // NIB Izin Usaha
@@ -178,17 +178,85 @@ export const UMKM_SEED: UMKM[] = [
     id: 'umkm-4',
     admin_id: 'admin-1',
     kategori_id: 'cat-umkm-4', // Jasa
-    nama_usaha: 'Desain Cetak Mahasiswa',
-    nama_mahasiswa: 'Rian Hidayat',
+    nama_usaha: 'Golet Kost & FastDokter (Tim Inovasi Digital)',
+    nama_mahasiswa: 'Rian Hidayat & Tim',
     program_studi: 'Informatika, Fakultas Teknik & Sains',
-    deskripsi: 'Layanan jasa desain grafis, pembuatan media presentasi, pengerjaan UI/UX aplikasi, hingga jasa percetakan tugas akhir yang cepat, ramah kantong, dan berkualitas bagi mahasiswa.',
-    histori_usaha: 'Rian memulai jasanya bermodalkan laptop spesifikasi standar di perpustakaan kampus. Melalui jaringan relasi inkubasi bisnis ISBI UMP, ia dipertemukan dengan rekanan percetakan besar yang bersedia memberikan harga reseller. Kini usahanya bertransformasi menjadi agensi kreatif kecil beranggotakan 4 mahasiswa desainer yang menangani kebutuhan promosi UMKM lokal maupun organisasi internal mahasiswa.',
+    deskripsi: 'Platform layanan digital pencarian hunian kos mahasiswa (Golet Kost) serta integrasi layanan konsultasi kesehatan mahasiswa terpadu (FastDokter).',
+    histori_usaha: 'Tim mahasiswa Informatika UMP membangun platform ini untuk menyelesaikan permasalahan nyata pencarian kost dan akses medis cepat bagi mahasiswa rantau di Purwokerto. Mendapatkan pembinaan dari ISBI UMP dan berhasil mendaftarkan izin usaha NIB serta kemitraan pemilik kost lokal.',
     foto_produk: 'https://images.unsplash.com/photo-1561070791-26c113006238?auto=format&fit=crop&q=80&w=800',
     foto_pendukung: [
-      'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=800', // NIB NIB/Sertifikat Legalitas
-      'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800'  // Foto Sesi Diskusi Desain Tim
+      'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=800', // NIB / Sertifikat Legalitas
+      'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800'  // Foto Sesi Diskusi Tim Digital
     ],
     kontak: '6284567890123',
+    status: 'Aktif'
+  },
+  {
+    id: 'umkm-5',
+    admin_id: 'admin-1',
+    kategori_id: 'cat-umkm-1', // Kuliner
+    nama_usaha: 'Sejanga Dawet (Tim Sejanga)',
+    nama_mahasiswa: 'Farhan Maulana & Tim',
+    program_studi: 'Teknik Kimia, Fakultas Teknik & Sains',
+    deskripsi: 'Inovasi minuman tradisional dawet ireng khas Banyumas dalam kemasan botol siap minum dengan teknologi pengawetan alami bebas bahan kimia berbahaya.',
+    histori_usaha: 'Dikembangkan oleh kelompok mahasiswa P2MW UMP yang mengangkat kuliner kearifan lokal dawet ayu menjadi produk kemasan modern. Lolos pendanaan hibah dan aktif dipasarkan di kantin kampus serta minimarket mitra.',
+    foto_produk: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&q=80&w=800',
+    foto_pendukung: [
+      'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=800', // Dokumen NIB & Izin Edar
+      'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=800'  // Foto Sesi Produksi Dawet
+    ],
+    kontak: '6285678901234',
+    status: 'Aktif'
+  },
+  {
+    id: 'umkm-6',
+    admin_id: 'admin-1',
+    kategori_id: 'cat-umkm-4', // Jasa
+    nama_usaha: 'Videolution Creative (Tim Videolution)',
+    nama_mahasiswa: 'Prasetyo Utomo & Tim',
+    program_studi: 'Desain Komunikasi Visual, FTIK',
+    deskripsi: 'Agensi jasa videografi, komersial produk UMKM, animasi 2D/3D, dan pengusahaan konten kreatif branding bisnis mahasiswa.',
+    histori_usaha: 'Berawal dari proyek tugas akhir studio multimedia, Videolution berkembang menjadi agensi kreatif berizin NIB resmi yang telah melayani belasan produk UMKM Banyumas dalam pembuatan video promosi sosial media.',
+    foto_produk: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&q=80&w=800',
+    foto_pendukung: [
+      'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=800', // Dokumen NIB Legalitas
+      'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800'  // Foto Syuting Lapangan
+    ],
+    kontak: '6286789012345',
+    status: 'Aktif'
+  },
+  {
+    id: 'umkm-7',
+    admin_id: 'admin-1',
+    kategori_id: 'cat-umkm-2', // Fashion
+    nama_usaha: 'HARS Dye Natural Fashion (Tim HARS Dye)',
+    nama_mahasiswa: 'Anisa Nur & Tim',
+    program_studi: 'Farmasi, Fakultas Farmasi',
+    deskripsi: 'Produk pakaian dan kain motif ecoprint serta tie-dye menggunakan ekstrak pewarna alami dari limbah tanaman lokal Banyumas.',
+    histori_usaha: 'Inovasi gabungan riset ekstrak bahan alam mahasiswa Farmasi UMP dengan industri fashion ramah lingkungan. Meraih apresiasi di ajang pameran wirausaha mahasiswa nasional.',
+    foto_produk: 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=800',
+    foto_pendukung: [
+      'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=800', // NIB Izin Usaha
+      'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&q=80&w=800'  // Foto Proses Pewarnaan Alami
+    ],
+    kontak: '6287890123456',
+    status: 'Aktif'
+  },
+  {
+    id: 'umkm-8',
+    admin_id: 'admin-1',
+    kategori_id: 'cat-umkm-4', // Jasa
+    nama_usaha: 'Mumtaz Laundry Services (Tim Mumtaz)',
+    nama_mahasiswa: 'Syafiq Rabbani & Tim',
+    program_studi: 'Ekonomi Syariah, FAI',
+    deskripsi: 'Layanan jasa laundry kilat ramah lingkungan berkonsep higienis syariah dengan sistem penjemputan antar-jemput gratis di sekitar area kampus UMP.',
+    histori_usaha: 'Didirikan oleh tim mahasiswa FAI yang menggabungkan prinsip kebersihan Islam dengan kenyamanan layanan digital laundry mahasiswa.',
+    foto_produk: 'https://images.unsplash.com/photo-1545173168-9f1947eebb7f?auto=format&fit=crop&q=80&w=800',
+    foto_pendukung: [
+      'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=800', // NIB Izin Usaha
+      'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=800'  // Foto Outlet Laundry
+    ],
+    kontak: '6288901234567',
     status: 'Aktif'
   }
 ];
