@@ -258,6 +258,159 @@ export const UMKM_SEED: UMKM[] = [
     ],
     kontak: '6288901234567',
     status: 'Aktif'
+  },
+  {
+    id: 'umkm-9',
+    admin_id: 'admin-1',
+    kategori_id: 'cat-umkm-1', // Kuliner
+    nama_usaha: 'Ambara Gourmet (Tim Ambara)',
+    nama_mahasiswa: 'Fitri Handayani & Tim',
+    program_studi: 'Teknologi Pangan, Fakultas Pertanian',
+    deskripsi: 'Produk camilan dan olahan pangan sehat kekinian berbahan dasar rempah dan umbi lokal unggulan Banyumas.',
+    histori_usaha: 'Inovasi produk kuliner dari tim Ambara yang berhasil meraih hibah wirausaha mahasiswa dan pendaftaran izin legalitas NIB serta sertifikasi halal.',
+    foto_produk: 'https://images.unsplash.com/photo-1599490659213-e2b9527bd087?auto=format&fit=crop&q=80&w=800',
+    foto_pendukung: [
+      'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=800', // Dokumen NIB
+      'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&q=80&w=800'  // Foto Kemasan Produk
+    ],
+    kontak: '6289012345678',
+    status: 'Aktif'
+  },
+  {
+    id: 'umkm-10',
+    admin_id: 'admin-1',
+    kategori_id: 'cat-umkm-4', // Jasa
+    nama_usaha: 'Coba Upgrade Diri (Tim Coba Upgrade Diri)',
+    nama_mahasiswa: 'Dewi Lestari & Tim',
+    program_studi: 'Psikologi, Fakultas Psikologi',
+    deskripsi: 'Platform pelatihan dan mentoring pengembangan diri, soft skills, dan kesiapan karir yang dirancang khusus untuk mahasiswa rintisan.',
+    histori_usaha: 'Digagas oleh tim Psikologi UMP untuk memfasilitasi mahasiswa dalam meningkatkan potensi diri dan kesiapan memasuki dunia profesional.',
+    foto_produk: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800',
+    foto_pendukung: [
+      'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=800', // NIB Legalitas
+      'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=800'  // Sesi Workshop Webinar
+    ],
+    kontak: '6289123456789',
+    status: 'Aktif'
+  },
+  {
+    id: 'umkm-11',
+    admin_id: 'admin-1',
+    kategori_id: 'cat-umkm-3', // Kerajinan
+    nama_usaha: 'Diptera Agro Innovation (Tim Diptera)',
+    nama_mahasiswa: 'Bagus Setyawan & Tim',
+    program_studi: 'Biologi, Fakultas Keguruan dan Ilmu Pendidikan',
+    deskripsi: 'Produk bioteknologi terapan dan solusi pembenihan organik terpadu ramah lingkungan bagi petani milenial.',
+    histori_usaha: 'Hasil riset mahasiswa biologi UMP yang ditransformasikan menjadi produk wirausaha bernilai komersial di bawah naungan ISBI UMP.',
+    foto_produk: 'https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?auto=format&fit=crop&q=80&w=800',
+    foto_pendukung: [
+      'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=800', // NIB Izin Usaha
+      'https://images.unsplash.com/photo-1528458909336-e7a0adfac1d5?auto=format&fit=crop&q=80&w=800'  // Foto Riset Laboratorium
+    ],
+    kontak: '6289234567890',
+    status: 'Aktif'
+  },
+  {
+    id: 'umkm-12',
+    admin_id: 'admin-1',
+    kategori_id: 'cat-umkm-2', // Fashion
+    nama_usaha: 'Dissa Hijab & Style (Tim Dissa)',
+    nama_mahasiswa: 'Annisa Rahma & Tim',
+    program_studi: 'Pendidikan Bahasa Inggris, FKIP',
+    deskripsi: 'Brand busana muslimah dan hijab instan premium dengan bahan adem serta desain minimalis elegan untuk aktivitas sehari-hari mahasiswi.',
+    histori_usaha: 'Memulai rintisan usaha fashion muslimah sejak bangku perkuliahan awal, aktif dipasarkan melalui media sosial dan pameran wirausaha UMP.',
+    foto_produk: 'https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&q=80&w=800',
+    foto_pendukung: [
+      'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=800', // Sertifikat NIB
+      'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&q=80&w=800'  // Photoshoot Produk
+    ],
+    kontak: '6289345678901',
+    status: 'Aktif'
+  },
+  {
+    id: 'umkm-13',
+    admin_id: 'admin-1',
+    kategori_id: 'cat-umkm-1', // Kuliner
+    nama_usaha: 'Moocofera Artisan Drink (Tim Moocofera)',
+    nama_mahasiswa: 'Rendi Kurniawan & Tim',
+    program_studi: 'Agroteknologi, Fakultas Pertanian',
+    deskripsi: 'Minuman kombinasi unik kakao dan kopi pilihan dengan varian rasa buah tropis lokal Banyumas.',
+    histori_usaha: 'Tim Moocofera mengembangkan formulasi minuman unik yang disukai mahasiswa dan berhasil lolos pendanaan P2MW.',
+    foto_produk: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&q=80&w=800',
+    foto_pendukung: [
+      'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=800', // NIB Izin Usaha
+      'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=800'  // Sesi Booth Pameran
+    ],
+    kontak: '6289456789012',
+    status: 'Aktif'
+  },
+  {
+    id: 'umkm-14',
+    admin_id: 'admin-1',
+    kategori_id: 'cat-umkm-4', // Jasa
+    nama_usaha: 'Rembox Eco Packaging (Tim Rembox)',
+    nama_mahasiswa: 'Aditya Pratama & Tim',
+    program_studi: 'Teknik Sipil, Fakultas Teknik & Sains',
+    deskripsi: 'Penyedia kardus dan kemasan ramah lingkungan custom untuk membantu pengemasan aman produk UMKM lokal.',
+    histori_usaha: 'Membantu puluhan mitra UMKM binaan ISBI UMP dalam mendapatkan kemasan kokoh, estetis, dan terjangkau.',
+    foto_produk: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=800',
+    foto_pendukung: [
+      'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=800', // NIB Legalitas
+      'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800'  // Produksi Box
+    ],
+    kontak: '6289567890123',
+    status: 'Aktif'
+  },
+  {
+    id: 'umkm-15',
+    admin_id: 'admin-1',
+    kategori_id: 'cat-umkm-4', // Jasa
+    nama_usaha: 'Second Book Hub (Tim Second Book)',
+    nama_mahasiswa: 'Nadia Safitri & Tim',
+    program_studi: 'Pendidikan Bahasa dan Sastra Indonesia, FKIP',
+    deskripsi: 'Platform jual beli dan sewa buku kuliah bekas berkualitas dengan harga terjangkau sesama mahasiswa UMP.',
+    histori_usaha: 'Solusi sirkulasi buku literasi kuliah hemat modal bagi mahasiswa yang diinisiasi oleh tim FKIP UMP.',
+    foto_produk: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&q=80&w=800',
+    foto_pendukung: [
+      'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=800', // NIB Izin Usaha
+      'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=800'  // Perpustakaan & Booth
+    ],
+    kontak: '6289678901234',
+    status: 'Aktif'
+  },
+  {
+    id: 'umkm-16',
+    admin_id: 'admin-1',
+    kategori_id: 'cat-umkm-1', // Kuliner
+    nama_usaha: 'Temutawa Herbal Brew (Tim Temutawa)',
+    nama_mahasiswa: 'Hendra Gunawan & Tim',
+    program_studi: 'Farmasi, Fakultas Farmasi',
+    deskripsi: 'Minuman kebugaran herbal temulawak dan jahe merah instan kaya antioksidan dalam bentuk serbuk praktis.',
+    histori_usaha: 'Formulasi racikan herbal berstandar khasiat dari mahasiswa Farmasi UMP yang dikemas secara higienis modern.',
+    foto_produk: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&q=80&w=800',
+    foto_pendukung: [
+      'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=800', // NIB & Sertifikat Halal
+      'https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&q=80&w=800'  // Foto Kemasan Herbal
+    ],
+    kontak: '6289789012345',
+    status: 'Aktif'
+  },
+  {
+    id: 'umkm-17',
+    admin_id: 'admin-1',
+    kategori_id: 'cat-umkm-4', // Jasa
+    nama_usaha: 'Inkubasi Inovasi UMP (Tim Startup Hub)',
+    nama_mahasiswa: 'Tim Inkubator Mahasiswa UMP',
+    program_studi: 'Lintas Fakultas UMP',
+    deskripsi: 'Pusat inkubasi bisnis, akselerator wirausaha muda, dan pendampingan legalitas NIB serta sertifikasi produk bagi tenant mahasiswa.',
+    histori_usaha: 'Wadah kolaborasi terpadu di bawah naungan Biro Kemahasiswaan dan Alumni UMP untuk melahirkan pengusaha muda tangguh.',
+    foto_produk: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=800',
+    foto_pendukung: [
+      'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&q=80&w=800', // Sertifikat Inkubator Resmi
+      'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=800'  // Sesi Pendampingan Mentor
+    ],
+    kontak: '6281235276164',
+    status: 'Aktif'
   }
 ];
 

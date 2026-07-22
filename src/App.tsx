@@ -39,7 +39,7 @@ import PagePrestasi from './components/PagePrestasi';
 // Safe helper to read from local storage and prevent JSON parsing errors
 function getSafeLocalStorage<T>(key: string, defaultValue: T): T {
   try {
-    const CURRENT_DATA_VERSION = 'isbi_v2026_07_22_v3';
+    const CURRENT_DATA_VERSION = 'isbi_v2026_07_22_v4';
     if (localStorage.getItem('isbi_app_data_version') !== CURRENT_DATA_VERSION) {
       try {
         localStorage.removeItem('isbi_umkm');
